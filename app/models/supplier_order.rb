@@ -1,0 +1,3 @@
+class SupplierOrder < Order
+
+end

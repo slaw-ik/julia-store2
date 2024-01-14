@@ -1,0 +1,3 @@
+class ClientOrder < Order
+
+end
