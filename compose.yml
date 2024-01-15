@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.2-alpine
+    container_name: postgres-14.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: "postgres -c 'max_connections=500'"
+    environment:
+      POSTGRES_DB: yulia_store_development
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
+      POSTGRES_HOST_AUTH_METHOD: trust 
+      DB_PORT: 5433
+    ports:
+      - "5433:5432"
+  api:
+    build: .
+    command: "bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      DB_HOST: db
+      DB_NAME: yulia_store_development
+      DB_USERNAME: postgres
+      DB_PASSWORD: 
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    develop:
+      watch:
+        - path: ./Gemfile.lock
+          action: rebuild
+        - path: ./Gemfile
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync
+  frontend:
+    build: ./frontend
+    command: "npm start"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+    develop:
+      watch:
+        - path: ./frontend/package.json
+          action: rebuild
+        - path: ./frontend/package-lock.json
+          action: rebuild
+        - path: ./frontend
+          target: /app
+          action: sync
+volumes:
+  postgres_data: {}
+  
+networks:
+  default:
+    name: myapp_default
