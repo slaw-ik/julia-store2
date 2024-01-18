@@ -1,5 +1,5 @@
 import React from "react";
-import {OrderState} from "./orderSlice";
+import {OrderState} from "../../features/orders/ordersSlice";
 
 type OrderProps = {
     order: OrderState;
@@ -7,6 +7,7 @@ type OrderProps = {
 
 function Order({order}: OrderProps) {
     const {
+        id,
         state,
         name,
         fullAddress,
@@ -33,7 +34,7 @@ function Order({order}: OrderProps) {
                     <span className="total">{total}</span>
                     <span className="note">{note}</span>
                     <span className="date">{created_at}</span>
-                    <a href="#" className="btn btn-sm btn-outline-secondary">Show</a>
+                    <a href={`/orders/${id}`} className="btn btn-sm btn-outline-secondary">Show</a>
                 </div>
                 <span className="d-block">@{nickname}</span>
             </div>

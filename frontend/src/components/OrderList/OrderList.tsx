@@ -1,11 +1,12 @@
 import React, {useEffect} from "react";
-import {useAppSelector} from "../../app/hooks";
-import {fetchOrdersAsync, OrderState, selectOrders, selectStatus, Statuses} from "./orderSlice";
 import {useDispatch} from "react-redux";
+
+import {useAppSelector} from "../../app/hooks";
+import {fetchOrdersAsync, OrderState, selectOrders, selectStatus, Statuses} from "../../features/orders/ordersSlice";
 import {AppDispatch} from "../../app/store";
 import Order from "./Order";
 
-function Orders() {
+function OrderList() {
     const orders = useAppSelector(selectOrders);
     const status = useAppSelector(selectStatus);
     const dispatch = useDispatch<AppDispatch>()
@@ -39,4 +40,4 @@ function Orders() {
     );
 }
 
-export default Orders;
+export default OrderList;

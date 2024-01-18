@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { fetchOrder } from "./orderAPI";
+import { fetchOrders } from "./orderAPI";
 
 export enum Statuses {
   Initial = "Not fetched",
@@ -24,47 +24,48 @@ export interface OrderState {
 }
 
 export interface OrdersState {
-  order: OrderState;
+  orders: OrderState[];
   status: Statuses;
 }
 
 const initialState: OrdersState = {
-  order: {
-    id: 0,
-    country: "",
-    status: "pending",
-  },
-
+  orders: [
+    {
+      id: 0,
+      country: "",
+      status: "pending",
+    },
+  ],
   status: Statuses.Initial,
 };
 
-export const fetchOrderAsync = createAsyncThunk(
-  "orders/fetchOrder",
-  async (payload: string) => await fetchOrder(payload)
+export const fetchOrdersAsync = createAsyncThunk(
+  "orders/fetchOrders",
+  async () => await fetchOrders()
 );
 
-export const orderSlice = createSlice({
-  name: "order",
+export const ordersSlice = createSlice({
+  name: "orders",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrderAsync.pending, (state) => {
+      .addCase(fetchOrdersAsync.pending, (state) => {
         state.status = Statuses.Loading;
       })
-      .addCase(fetchOrderAsync.fulfilled, (state, action) => {
-        state.order = action.payload;
+      .addCase(fetchOrdersAsync.fulfilled, (state, action) => {
+        state.orders = action.payload;
         state.status = Statuses.UpToDate;
       })
-      .addCase(fetchOrderAsync.rejected, (state) => {
+      .addCase(fetchOrdersAsync.rejected, (state) => {
         state.status = Statuses.Error;
       });
   },
 });
 
-export const {} = orderSlice.actions;
+export const {} = ordersSlice.actions;
 
-export const selectOrder = (state: RootState) => state.order.order;
-export const selectStatus = (state: RootState) => state.order.status;
+export const selectOrders = (state: RootState) => state.orders.orders;
+export const selectStatus = (state: RootState) => state.orders.status;
 
-export default orderSlice.reducer;
+export default ordersSlice.reducer;
