@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: clients
+#
+#  id         :bigint           not null, primary key
+#  nickname   :string
+#  first_name :string
+#  last_name  :string
+#  email      :string
+#  phone      :string
+#  address_id :bigint           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Client < ApplicationRecord
   belongs_to :address, required: true
 

@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: addresses
+#
+#  id         :bigint           not null, primary key
+#  country    :string           not null
+#  city       :string           not null
+#  region     :string           not null
+#  street     :string           not null
+#  post_code  :string
+#  building   :string           not null
+#  flat       :string
+#  note       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Address < ApplicationRecord
   has_one :client
   has_one :supplier

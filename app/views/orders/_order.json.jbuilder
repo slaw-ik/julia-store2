@@ -12,3 +12,10 @@ else
   json.email order.supplier.email
   json.phone order.supplier.phone
 end
+
+json.orderItems order.order_items do |order_item|
+  json.extract! order_item, :id, :item_id, :order_id, :count, :price, :total, :created_at, :updated_at
+  json.item do
+    json.extract! order_item.item, :id, :name, :description, :price, :created_at, :updated_at
+  end  
+end
