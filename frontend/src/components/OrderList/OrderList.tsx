@@ -18,7 +18,7 @@ function OrderList() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchOrdersAsync());
+    dispatch(fetchOrdersAsync(1));
   }, [dispatch]);
 
   let contents;
@@ -28,7 +28,7 @@ function OrderList() {
   } else {
     contents = (
       <div>
-        {orders.map((order: OrderState) => (
+        {orders.orders.map((order: OrderState) => (
           <Order key={order.id} order={order} />
         ))}
       </div>
@@ -36,11 +36,11 @@ function OrderList() {
   }
 
   return (
-    <div className="my-3 p-3 bg-body rounded shadow-sm">
+    <div className="p-3 bg-body rounded shadow-sm">
       <h6 className="border-bottom pb-2 mb-0">Last orders</h6>
       {contents}
       <small className="d-block text-end mt-3">
-        <a href="#">All orders</a>
+        <a href="/orders">All orders</a>
       </small>
     </div>
   );

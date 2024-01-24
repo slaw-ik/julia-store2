@@ -1,6 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Order from "./pages/Order";
+import OrderIndex from "./components/OrderIndex/OrderIndex";
+
+import "bootstrap-icons/font/bootstrap-icons.css";
+import Navbar from "./components/Navbar/Navbar";
 
 const router = createBrowserRouter([
   {
@@ -13,17 +17,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/orders",
-    element: <Home />,
+    element: <OrderIndex />,
   },
 ]);
 
 function App() {
   return (
-    <main className="container-fluid">
-      <div className="container">
-        <RouterProvider router={router} />
-      </div>
-    </main>
+    <>
+      <Navbar />
+      <main className="container-fluid">
+        <div className="container pt-5">
+          <RouterProvider router={router} />
+        </div>
+      </main>
+    </>
   );
 }
 

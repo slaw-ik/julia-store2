@@ -24,24 +24,33 @@ export interface OrderState {
 }
 
 export interface OrdersState {
-  orders: OrderState[];
+  orders: {
+    orders: OrderState[];
+    total: number;
+    page: number;
+  };
   status: Statuses;
 }
 
 const initialState: OrdersState = {
-  orders: [
-    {
-      id: 0,
-      country: "",
-      status: "pending",
-    },
-  ],
+  orders: {
+    orders: [
+      {
+        id: 0,
+        country: "",
+        status: "pending",
+      },
+    ],
+    page: 1,
+    total: 1,
+  },
+
   status: Statuses.Initial,
 };
 
 export const fetchOrdersAsync = createAsyncThunk(
   "orders/fetchOrders",
-  async () => await fetchOrders()
+  async (payload: number) => await fetchOrders(payload)
 );
 
 export const ordersSlice = createSlice({
