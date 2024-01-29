@@ -5,7 +5,8 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-          Julia Store
+          <i className="bi bi-bag-heart-fill mx-2"></i>
+          Julia's Store
         </a>
         <button
           className="navbar-toggler collapsed"

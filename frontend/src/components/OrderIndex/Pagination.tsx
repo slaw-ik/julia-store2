@@ -9,6 +9,12 @@ const Pagination = ({ page, fetchData }: PaginationProps) => {
   const [currentPage, setCurrentPage] = useState<number>(page);
 
   useEffect(() => {
+    console.log("useEffect - pagination", page);
+
+    setCurrentPage(page);
+  }, [page]);
+
+  useEffect(() => {
     // fetchData(currentPage);
 
     console.log("currentPage", currentPage);
@@ -20,7 +26,7 @@ const Pagination = ({ page, fetchData }: PaginationProps) => {
     const newHash = "#" + params.toString();
 
     // Set the new hash in the window location
-    window.location.hash = newHash;
+    // window.location.hash = newHash;
   }, [currentPage]);
 
   const prevDisabled = currentPage === 1;
@@ -42,17 +48,17 @@ const Pagination = ({ page, fetchData }: PaginationProps) => {
 
   return (
     <ul className="pagination mb-sm-0">
-      <li className={`page-item ${prevDisabled && "disabled"}`}>
+      <li key="prev" className={`page-item ${prevDisabled && "disabled"}`}>
         <button className="page-link" onClick={handlePreviousPage}>
           <i className="bi bi-caret-left" />
         </button>
       </li>
       {Array.from({ length: 5 }, (_, index) => index + 1).map((page) => (
-        <li className={`page-item ${isActive(page) && "active"}`}>
+        <li key={page} className={`page-item ${isActive(page) && "active"}`}>
           <button className="page-link">{page}</button>
         </li>
       ))}
-      <li className={`page-item ${nextDisabled && "disabled"}`}>
+      <li key="next" className={`page-item ${nextDisabled && "disabled"}`}>
         <button className="page-link" onClick={handleNextPage}>
           <i className="bi bi-caret-right" />
         </button>

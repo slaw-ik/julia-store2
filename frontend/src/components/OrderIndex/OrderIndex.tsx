@@ -14,6 +14,7 @@ import Order from "./Order";
 
 import "./styles.css";
 import Pagination from "./Pagination";
+import { urlHashParam } from "../../utils/url";
 
 function OrderIndex() {
   const orders = useAppSelector(selectOrders);
@@ -27,14 +28,12 @@ function OrderIndex() {
   };
 
   useEffect(() => {
-    const hash = window.location.hash;
-    const hashWithoutHashSign = hash.slice(1);
-    const params = new URLSearchParams(hashWithoutHashSign);
-    const page = params.get("page") || "1";
+    console.log("useEffect", urlHashParam("page"));
+    const page = urlHashParam("page");
 
     console.log("page", page);
 
-    setPage(parseInt(page));
+    if (page) setPage(parseInt(page));
   }, []);
 
   useEffect(() => {
@@ -71,14 +70,13 @@ function OrderIndex() {
         <div className="col-md-6">
           <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
             <div>
-              <a
-                href="#"
+              <button
                 data-bs-toggle="modal"
                 data-bs-target=".add-new"
                 className="btn btn-primary"
               >
                 <i className="bi bi-plus-lg"></i> Add New
-              </a>
+              </button>
             </div>
           </div>
         </div>
