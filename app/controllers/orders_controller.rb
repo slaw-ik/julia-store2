@@ -4,8 +4,10 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @client_orders = ClientOrder.all
-    @supplier_orders = SupplierOrder.all
+    @page = (params[:page] || 1).to_i
+    @total = ClientOrder.count
+    @client_orders = ClientOrder.all.page(@page)
+    # @supplier_orders = SupplierOrder.all
 
   end
 

@@ -14,7 +14,7 @@ import Order from "./Order";
 
 import "./styles.css";
 import Pagination from "./Pagination";
-import { urlHashParam } from "../../utils/url";
+import { useSearchParams } from "react-router-dom";
 
 function OrderIndex() {
   const orders = useAppSelector(selectOrders);
@@ -23,29 +23,41 @@ function OrderIndex() {
 
   const [page, setPage] = useState(1);
 
-  const fetchOrders = (page: number) => {
-    // dispatch(fetchOrdersAsync(page));
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: page.toString(),
+  });
+
+  const handleOnPageChanges = (pageToChange: number) => {
+    if (page !== pageToChange)
+      setSearchParams({ page: pageToChange.toString() });
   };
 
   useEffect(() => {
-    console.log("useEffect", urlHashParam("page"));
-    const page = urlHashParam("page");
+    const currentPage = searchParams.get("page");
 
-    console.log("page", page);
-
-    if (page) setPage(parseInt(page));
-  }, []);
+    if (currentPage) setPage(parseInt(currentPage));
+  }, [searchParams]);
 
   useEffect(() => {
-    fetchOrders(page);
-  }, [fetchOrders]);
+    dispatch(fetchOrdersAsync(page));
+  }, [dispatch, page]);
 
   let contents;
 
   if (status !== Statuses.UpToDate) {
     contents = (
       <tr>
-        <td colSpan={7}>{status}</td>
+        <td colSpan={7} style={{ height: "500px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h3>{status}</h3>
+          </div>
+        </td>
       </tr>
     );
   } else {
@@ -113,7 +125,11 @@ function OrderIndex() {
         </div>
         <div className="col-sm-6">
           <div className="float-sm-end">
-            <Pagination page={page} fetchData={fetchOrders} />
+            <Pagination
+              page={page}
+              total={orders.total}
+              onPageChanges={handleOnPageChanges}
+            />
           </div>
         </div>
       </div>

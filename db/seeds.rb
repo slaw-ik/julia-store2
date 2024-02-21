@@ -23,15 +23,24 @@ ActiveRecord::Base.transaction do
   client2 = Client.create!(nickname: 'Client_2', first_name: 'Name 2', last_name: 'Last 2', address: address2, email: 'client@two.com', phone: '0987654321')
   supplier = Supplier.create!(name: 'Supplier 1', address: address3, email: 'supplier@suppl.com', phone: '4561327890')
 
-  order1 = ClientOrder.create!(user: user, client: client1)
-  OrderItem.create!(order: order1, item: item1, count: 1)
-  OrderItem.create!(order: order1, item: item2, count: 2)
+  # order1 = ClientOrder.create!(user: user, client: client1)
+  # OrderItem.create!(order: order1, item: item1, count: 1)
+  # OrderItem.create!(order: order1, item: item2, count: 2)
 
-  order2 = ClientOrder.create!(user: user, client: client2)
-  OrderItem.create!(order: order2, item: item2, count: 1)
-  OrderItem.create!(order: order2, item: item3, count: 2)
+  # order2 = ClientOrder.create!(user: user, client: client2)
+  # OrderItem.create!(order: order2, item: item2, count: 1)
+  # OrderItem.create!(order: order2, item: item3, count: 2)
 
   order3 = SupplierOrder.create!(user: user, supplier: supplier)
   OrderItem.create!(order: order3, item: item1, count: 10)
 
+
+  30.times do |i|
+    order = ClientOrder.create!(user: user, client: [client1, client2].sample)
+    (1..5).to_a.sample.times do
+      OrderItem.create!(order: order, item: [item1, item2, item3].sample, count: rand(1..10))
+    end
+
+    puts "Order #{i} created"
+  end
 end
