@@ -3,10 +3,10 @@ import {useDispatch} from "react-redux";
 
 import {useAppSelector} from "../../app/hooks";
 import {
-  fetchOrdersAsync,
-  selectOrders,
+  fetchClientsAsync,
+  selectClients,
   selectStatus,
-} from "../../features/orders/ordersSlice";
+} from "../../features/clients/clientsSlice";
 import {AppDispatch} from "../../app/store";
 
 
@@ -15,8 +15,8 @@ import MegaTable from "../MegaTable/MegaTable";
 
 import "./styles.css";
 
-const OrderIndex = () => {
-  const orders = useAppSelector(selectOrders);
+const ClientIndex = () => {
+  const clients = useAppSelector(selectClients);
   const status = useAppSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -38,7 +38,7 @@ const OrderIndex = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    dispatch(fetchOrdersAsync(page));
+    dispatch(fetchClientsAsync(page));
   }, [dispatch, page]);
 
 
@@ -46,43 +46,37 @@ const OrderIndex = () => {
     <div className="container">
       <MegaTable
         status={status}
-        records={orders.orders}
+        records={clients.clients}
         page={page}
-        total={orders.total}
+        total={clients.total}
         onPageChanges={handleOnPageChanges}
-        dataStructure={[{
-          key: "id",
-          name: "#"
-        },
+        dataStructure={[
           {
-            key: "name",
-            name: "Name"
+            key: "id",
+            name: "#"
           },
           {
-            key: "state",
-            name: "State"
+            key: "firstName",
+            name: "First Name"
           },
           {
-            key: "nickname",
-            name: "Nickname"
-          },
-          {
-            key: "total",
-            name: "Total"
-          },
-          {
-            key: "created_at",
-            name: "Date"
-          },
-          {
-            key: "action",
-            name: "Action",
-            style: {width: "200px"}
+            key: "lastName",
+            name: "Last Name"
           }
         ]}
+        customRow={(record: any) => {
+          return (
+            <tr key={record.id}>
+              <td>{record.id}</td>
+              <td>{record.firstName}</td>
+              <td>{record.lastName}</td>
+            </tr>
+          );
+        }
+        }
       />
     </div>
   );
 };
 
-export default OrderIndex;
+export default ClientIndex;

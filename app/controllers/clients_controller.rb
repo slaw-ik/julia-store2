@@ -3,7 +3,9 @@ class ClientsController < ApplicationController
 
   # GET /clients or /clients.json
   def index
-    @clients = Client.all
+    @page = (params[:page] || 1).to_i
+    @total = Client.count
+    @clients = Client.all.page(@page)
   end
 
   # GET /clients/1 or /clients/1.json

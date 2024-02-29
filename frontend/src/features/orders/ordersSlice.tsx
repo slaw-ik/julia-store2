@@ -11,7 +11,7 @@ export enum Statuses {
 }
 
 export interface OrderState {
-  id?: number;
+  id: number;
   country?: string;
   status?: string;
   state?: string;

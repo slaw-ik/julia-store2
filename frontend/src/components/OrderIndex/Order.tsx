@@ -2,7 +2,7 @@ import React from "react";
 import { prettifyDate } from "../../utils/dateTime";
 
 type OrderProps = {
-  order: {
+  record: {
     id?: number;
     country?: string;
     status?: string;
@@ -11,14 +11,14 @@ type OrderProps = {
     fullAddress?: string;
     total?: string;
     note?: string;
-    created_at?: string;
+    createdAt?: string;
     nickname?: string;
   };
 };
 
-const Order = ({ order }: OrderProps) => {
-  const { id, state, name, fullAddress, total, note, created_at, nickname } =
-    order;
+const Order = ({ record }: OrderProps) => {
+  const { id, state, name, fullAddress, total, note, createdAt, nickname } =
+    record;
 
   return (
     <tr>
@@ -33,7 +33,7 @@ const Order = ({ order }: OrderProps) => {
       </td>
       <td>{nickname}</td>
       <td>{total}</td>
-      <td>{prettifyDate(created_at)}</td>
+      <td>{prettifyDate(createdAt)}</td>
       <td>
         <ul className="list-inline mb-0">
           <li className="list-inline-item">

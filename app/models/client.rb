@@ -15,6 +15,8 @@
 class Client < ApplicationRecord
   belongs_to :address, required: true
 
+  scope :page, ->(page) { limit(10).offset((page - 1) * 10) }
+
   def name
     "#{first_name} #{last_name}"
   end

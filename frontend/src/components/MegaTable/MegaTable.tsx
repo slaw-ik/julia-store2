@@ -1,41 +1,46 @@
-import React from 'react';
+import React, {CSSProperties} from 'react';
 import Pagination from "./Pagination";
 import {OrderState, Statuses} from "../../features/orders/ordersSlice";
 import Order from "../OrderIndex/Order";
 import "./styles.css";
 import FooterInfo from "./FooterInfo";
+import Loader from "./Loader";
 
 interface MegaTableProps {
-  records: OrderState[];
+  records: BaseRecord[];
   total: number;
   page: number;
   onPageChanges: (page: number) => void;
   status: string;
-};
-const MegaTable = ({records, page, total, onPageChanges, status}: MegaTableProps) => {
+  dataStructure: {
+    key: string;
+    name: string;
+    style?: CSSProperties;
+  }[];
+  customRow?: (record: BaseRecord) => JSX.Element;
+}
+
+interface BaseRecord {
+  id: number;
+}
+
+const MegaTable = ({records, page, total, onPageChanges, status, dataStructure, customRow}: MegaTableProps) => {
 
   let contents;
 
   if (status !== Statuses.UpToDate) {
-    contents = (
-      <tr>
-        <td colSpan={7} style={{height: "500px"}}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <h3>{status}</h3>
-          </div>
-        </td>
-      </tr>
-    );
+    contents = <Loader/>;
   } else {
-    contents = records.map((order: OrderState) => (
-      <Order key={order.id} order={order}/>
-    ));
+    if (customRow) {
+      contents = records.map((record: BaseRecord) => (
+        customRow(record)
+      ));
+    } else {
+      contents = records.map((record: BaseRecord) => (
+        <Order key={record.id} record={record}/>
+      ));
+    }
+
   }
 
   return (
@@ -69,15 +74,10 @@ const MegaTable = ({records, page, total, onPageChanges, status}: MegaTableProps
             <table className="table project-list-table table-nowrap align-middle table-borderless">
               <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">State</th>
-                <th scope="col">Nickname</th>
-                <th scope="col">Total</th>
-                <th scope="col">Date</th>
-                <th scope="col" style={{width: "200px"}}>
-                  Action
-                </th>
+                {dataStructure.map((data) => (
+                  <th key={data.key} scope="col" style={data.style || {}}>{data.name}</th>
+                ))}
+
               </tr>
               </thead>
               <tbody>{contents}</tbody>
@@ -88,7 +88,6 @@ const MegaTable = ({records, page, total, onPageChanges, status}: MegaTableProps
       <div className="row g-0 align-items-center pb-4">
         <div className="col-sm-6">
           <FooterInfo page={page} total={total} count={records.length}/>
-
         </div>
         <div className="col-sm-6">
           <div className="float-sm-end">

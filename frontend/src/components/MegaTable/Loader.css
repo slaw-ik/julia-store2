@@ -1,0 +1,400 @@
+.animation {
+    /*box-sizing: border-box;*/
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*float: left;*/
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*border: 2px solid #333;*/
+    /*border-radius: 0.3em;*/
+}
+
+.anim1 {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border: 4px solid #ccc;
+    border-radius: 100%;
+}
+
+.anim1:before {
+    width: 4px;
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 1px;
+    height: 13px;
+    background-color: #ccc;
+    animation: anim1 3s linear infinite;
+    content: "";
+    transform-origin: 2px 13px;
+    border-radius: 2px;
+}
+
+.anim1:after {
+    width: 4px;
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 5px;
+    height: 9px;
+    background-color: #ccc;
+    animation: anim1 18s linear infinite;
+    content: "";
+    transform-origin: 2px 9px;
+    border-radius: 2px;
+}
+
+@-moz-keyframes anim1 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes anim1 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes anim1 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes anim1 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.anim2 {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;
+    border-radius: 100%;
+}
+
+.anim2:before,
+.anim2:after {
+    width: 2px;
+    display: block;
+    position: absolute;
+    left: 11px;
+    top: 2px;
+    height: 20px;
+    background-color: #ccc;
+    animation: anim2 3s linear infinite;
+    content: "";
+    transform-origin: 1px 10px;
+}
+
+.anim2:after {
+    animation: anim2 3s linear -0.75s infinite;
+}
+
+@-moz-keyframes anim2 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes anim2 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes anim2 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes anim2 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.anim3:before {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-top: -5px;
+    border: 2px solid #ccc;
+    content: "";
+    animation: anim3 0.5s ease infinite alternate;
+    border-radius: 100% 100% 0 100%;
+    transform: rotate(45deg);
+}
+
+.anim3:after {
+    display: block;
+    width: 28px;
+    height: 8px;
+    margin-top: 8px;
+    background-color: #3d3d3d;
+    content: "";
+    border-radius: 100%;
+}
+
+@-moz-keyframes anim3 {
+    to {
+        transform: rotate(45deg) translate(3px, 3px);
+    }
+}
+
+@-webkit-keyframes anim3 {
+    to {
+        transform: rotate(45deg) translate(3px, 3px);
+    }
+}
+
+@-o-keyframes anim3 {
+    to {
+        transform: rotate(45deg) translate(3px, 3px);
+    }
+}
+
+@keyframes anim3 {
+    to {
+        transform: rotate(45deg) translate(3px, 3px);
+    }
+}
+
+.anim4 {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;
+    border-radius: 100%;
+}
+
+.anim4:before {
+    display: block;
+    width: 8px;
+    height: 8px;
+    margin: -2px -2px 0 0;
+    background-color: #ccc;
+    content: "";
+    animation: anim4 1s linear infinite;
+    border-radius: 100%;
+    transform-origin: 12px 14px;
+}
+
+@-moz-keyframes anim4 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes anim4 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes anim4 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes anim4 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.anim5 {
+    width: 24px;
+    height: 24px;
+    border-top: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    border-right: 2px solid #222;
+    border-left: 2px solid #222;
+    animation: anim5 0.75s ease infinite;
+    border-radius: 100%;
+}
+
+@-moz-keyframes anim5 {
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+@-webkit-keyframes anim5 {
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+@-o-keyframes anim5 {
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes anim5 {
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+.anim6 {
+    width: 16px;
+    height: 16px;
+    background-color: #ccc;
+    animation: anim6 1.5s ease infinite;
+    border-radius: 100%;
+}
+
+@-moz-keyframes anim6 {
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+@-webkit-keyframes anim6 {
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+@-o-keyframes anim6 {
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+@keyframes anim6 {
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+.anim7 {
+    width: 24px;
+    height: 24px;
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #222;
+    animation: anim7 1s ease infinite;
+    border-radius: 100%;
+}
+
+@-moz-keyframes anim7 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes anim7 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes anim7 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes anim7 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.anim8,
+.anim8:before,
+.anim8:after,
+.anim8:before:after {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    background: #ccc;
+    content: "";
+    animation: anim8 1s ease -0.25s infinite alternate;
+    border-radius: 100%;
+}
+
+.anim8:before,
+.anim8:before:before,
+.anim8:after:before,
+.anim8:before:after:before {
+    position: absolute;
+    left: -12px;
+    animation: anim8 1s ease -0.5s infinite alternate;
+}
+
+.anim8:after,
+.anim8:before:after,
+.anim8:after:after,
+.anim8:before:after:after {
+    position: absolute;
+    left: 12px;
+    animation: anim8 1s ease infinite alternate;
+}
+
+@-moz-keyframes anim8 {
+    to {
+        background: #333;
+    }
+}
+
+@-webkit-keyframes anim8 {
+    to {
+        background: #333;
+    }
+}
+
+@-o-keyframes anim8 {
+    to {
+        background: #333;
+    }
+}
+
+@keyframes anim8 {
+    to {
+        background: #333;
+    }
+}
+
+.anim9 {
+    width: 24px;
+    height: 2px;
+    background: linear-gradient(to right, #ccc, #ccc 30%, #333 10%);
+    animation: anim9 1s linear infinite;
+}
+
+@-moz-keyframes anim9 {
+    to {
+        background-position: 24px 0;
+    }
+}
+
+@-webkit-keyframes anim9 {
+    to {
+        background-position: 24px 0;
+    }
+}
+
+@-o-keyframes anim9 {
+    to {
+        background-position: 24px 0;
+    }
+}
+
+@keyframes anim9 {
+    to {
+        background-position: 24px 0;
+    }
+}
