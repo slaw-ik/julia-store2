@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-import { fetchOrders } from "./orderAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
+import { fetchOrders } from './orderAPI';
 
 export enum Statuses {
-  Initial = "Not fetched",
-  Loading = "Loading...",
-  UpToDate = "Up to date",
-  Deleted = "Deleted",
-  Error = "Error",
+  Initial = 'Not fetched',
+  Loading = 'Loading...',
+  UpToDate = 'Up to date',
+  Deleted = 'Deleted',
+  Error = 'Error',
 }
 
 export interface OrderState {
@@ -37,8 +37,8 @@ const initialState: OrdersState = {
     orders: [
       {
         id: 0,
-        country: "",
-        status: "pending",
+        country: '',
+        status: 'pending',
       },
     ],
     page: 1,
@@ -49,12 +49,12 @@ const initialState: OrdersState = {
 };
 
 export const fetchOrdersAsync = createAsyncThunk(
-  "orders/fetchOrders",
+  'orders/fetchOrders',
   async (payload: number) => await fetchOrders(payload)
 );
 
 export const ordersSlice = createSlice({
-  name: "orders",
+  name: 'orders',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

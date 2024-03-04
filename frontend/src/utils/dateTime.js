@@ -1,4 +1,4 @@
 export const prettifyDate = (date) => {
   const dateObj = new Date(date);
-  return dateObj.toLocaleDateString("ru-RU");
+  return dateObj.toLocaleDateString('ru-RU');
 };

@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-import { fetchClients } from "./clientAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
+import { fetchClients } from './clientAPI';
 
 export enum Statuses {
-  Initial = "Not fetched",
-  Loading = "Loading...",
-  UpToDate = "Up to date",
-  Deleted = "Deleted",
-  Error = "Error",
+  Initial = 'Not fetched',
+  Loading = 'Loading...',
+  UpToDate = 'Up to date',
+  Deleted = 'Deleted',
+  Error = 'Error',
 }
 
 export interface ClientState {
@@ -30,8 +30,8 @@ const initialState: ClientsState = {
     clients: [
       {
         id: 0,
-        firstName: "",
-        lastName: "",
+        firstName: '',
+        lastName: '',
       },
     ],
     page: 1,
@@ -42,12 +42,12 @@ const initialState: ClientsState = {
 };
 
 export const fetchClientsAsync = createAsyncThunk(
-  "clients/fetchClients",
+  'clients/fetchClients',
   async (payload: number) => await fetchClients(payload)
 );
 
 export const clientsSlice = createSlice({
-  name: "clients",
+  name: 'clients',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

@@ -1,15 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { useAppSelector } from "../../app/hooks";
-import {
-  selectOrder,
-  selectStatus,
-  fetchOrderAsync,
-  Statuses,
-} from "../../features/orders/orderSlice";
-import { AppDispatch } from "../../app/store";
-import Order from "./Order";
+import { useAppSelector } from '../../app/hooks';
+import { selectOrder, selectStatus, fetchOrderAsync, Statuses } from '../../features/orders/orderSlice';
+import { AppDispatch } from '../../app/store';
+import Order from './Order';
 
 type OrderPageProps = {
   id: string;

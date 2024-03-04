@@ -1,19 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import {useAppSelector} from "../../app/hooks";
-import {
-  fetchOrdersAsync,
-  selectOrders,
-  selectStatus,
-} from "../../features/orders/ordersSlice";
-import {AppDispatch} from "../../app/store";
+import { useAppSelector } from '../../app/hooks';
+import { fetchOrdersAsync, selectOrders, selectStatus } from '../../features/orders/ordersSlice';
+import { AppDispatch } from '../../app/store';
 
+import { useSearchParams } from 'react-router-dom';
+import MegaTable, { BaseRecord } from '../MegaTable/MegaTable';
 
-import {useSearchParams} from "react-router-dom";
-import MegaTable from "../MegaTable/MegaTable";
-
-import "./styles.css";
+import './styles.css';
+import Order from './Order';
 
 const OrderIndex = () => {
   const orders = useAppSelector(selectOrders);
@@ -27,12 +23,11 @@ const OrderIndex = () => {
   });
 
   const handleOnPageChanges = (pageToChange: number) => {
-    if (page !== pageToChange)
-      setSearchParams({page: pageToChange.toString()});
+    if (page !== pageToChange) setSearchParams({ page: pageToChange.toString() });
   };
 
   useEffect(() => {
-    const currentPage = searchParams.get("page");
+    const currentPage = searchParams.get('page');
 
     if (currentPage) setPage(parseInt(currentPage));
   }, [searchParams]);
@@ -40,7 +35,6 @@ const OrderIndex = () => {
   useEffect(() => {
     dispatch(fetchOrdersAsync(page));
   }, [dispatch, page]);
-
 
   return (
     <div className="container">
@@ -50,36 +44,38 @@ const OrderIndex = () => {
         page={page}
         total={orders.total}
         onPageChanges={handleOnPageChanges}
-        dataStructure={[{
-          key: "id",
-          name: "#"
-        },
+        dataStructure={[
           {
-            key: "name",
-            name: "Name"
+            key: 'id',
+            name: '#',
           },
           {
-            key: "state",
-            name: "State"
+            key: 'name',
+            name: 'Name',
           },
           {
-            key: "nickname",
-            name: "Nickname"
+            key: 'state',
+            name: 'State',
           },
           {
-            key: "total",
-            name: "Total"
+            key: 'nickname',
+            name: 'Nickname',
           },
           {
-            key: "created_at",
-            name: "Date"
+            key: 'total',
+            name: 'Total',
           },
           {
-            key: "action",
-            name: "Action",
-            style: {width: "200px"}
-          }
+            key: 'created_at',
+            name: 'Date',
+          },
+          {
+            key: 'action',
+            name: 'Action',
+            style: { width: '200px' },
+          },
         ]}
+        customRow={(record: BaseRecord) => <Order key={record.id} record={record} />}
       />
     </div>
   );

@@ -1,6 +1,6 @@
-import React from "react";
-import OrderItem from "./OrderItem";
-import { prettifyDate } from "../../utils/dateTime";
+import React from 'react';
+import OrderItem from './OrderItem';
+import { prettifyDate } from '../../utils/dateTime';
 
 type OrderProps = {
   order: any;
@@ -31,11 +31,7 @@ const Order = ({ order }: OrderProps) => {
                     <span className="text">Invoice</span>
                   </button>
                   <div className="dropdown">
-                    <button
-                      className="btn btn-link p-0 text-muted"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                    >
+                    <button className="btn btn-link p-0 text-muted" type="button" data-bs-toggle="dropdown">
                       <i className="bi bi-three-dots-vertical"></i>
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
@@ -56,7 +52,7 @@ const Order = ({ order }: OrderProps) => {
               <table className="table table-borderless">
                 <tbody>
                   {order.orderItems.map((orderItem: any) => (
-                    <OrderItem orderItem={orderItem} key={orderItem.id}/>
+                    <OrderItem orderItem={orderItem} key={orderItem.id} />
                   ))}
                 </tbody>
                 <tfoot>
@@ -74,7 +70,7 @@ const Order = ({ order }: OrderProps) => {
           <div className="card mb-4">
             <div className="card-body">
               <h3 className="h6">Note</h3>
-              <p>{order.note || "-"}</p>
+              <p>{order.note || '-'}</p>
             </div>
           </div>
 
@@ -83,11 +79,7 @@ const Order = ({ order }: OrderProps) => {
               <h3 className="h6">Shipping Information</h3>
               <strong>FedEx</strong>
               <span>
-                <a
-                  href="#"
-                  className="text-decoration-underline"
-                  target="_blank"
-                >
+                <a href="#" className="text-decoration-underline" target="_blank">
                   FF1234567890
                 </a>
                 <i className="bi bi-box-arrow-up-right"></i>

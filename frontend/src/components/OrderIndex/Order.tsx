@@ -1,5 +1,5 @@
-import React from "react";
-import { prettifyDate } from "../../utils/dateTime";
+import React from 'react';
+import { prettifyDate } from '../../utils/dateTime';
 
 type OrderProps = {
   record: {
@@ -17,8 +17,7 @@ type OrderProps = {
 };
 
 const Order = ({ record }: OrderProps) => {
-  const { id, state, name, fullAddress, total, note, createdAt, nickname } =
-    record;
+  const { id, state, name, fullAddress, total, note, createdAt, nickname } = record;
 
   return (
     <tr>
@@ -59,13 +58,7 @@ const Order = ({ record }: OrderProps) => {
             </a>
           </li>
           <li className="list-inline-item">
-            <a
-              href=""
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Delete"
-              className="px-2 text-danger"
-            >
+            <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" className="px-2 text-danger">
               <i className="bi bi-trash font-size-18"></i>
             </a>
           </li>
