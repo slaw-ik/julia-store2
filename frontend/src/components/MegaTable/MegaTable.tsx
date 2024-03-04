@@ -4,6 +4,7 @@ import FooterInfo from './FooterInfo';
 import Content from './Content';
 
 import './styles.css';
+import Header from './Header';
 
 interface MegaTableProps {
   records: BaseRecord[];
@@ -13,8 +14,12 @@ interface MegaTableProps {
   status: string;
   dataStructure: DataStructure[];
   customRow?: (record: BaseRecord) => JSX.Element;
+  showActions?: ShowActions;
 }
 
+export interface ShowActions {
+  resource: string;
+}
 export interface DataStructure {
   key: string;
   name: string;
@@ -25,7 +30,16 @@ export interface BaseRecord {
   id: number;
 }
 
-const MegaTable = ({ records, page, total, onPageChanges, status, dataStructure, customRow }: MegaTableProps) => {
+const MegaTable = ({
+                     records,
+                     page,
+                     total,
+                     onPageChanges,
+                     status,
+                     dataStructure,
+                     customRow,
+                     showActions,
+                   }: MegaTableProps) => {
   return (
     <>
       <div className="row align-items-center">
@@ -51,16 +65,11 @@ const MegaTable = ({ records, page, total, onPageChanges, status, dataStructure,
           <div className="table-responsive">
             <table className="table project-list-table table-nowrap align-middle table-borderless">
               <thead>
-                <tr>
-                  {dataStructure.map((data) => (
-                    <th key={data.key} scope="col" style={data.style || {}}>
-                      {data.name}
-                    </th>
-                  ))}
-                </tr>
+              <Header dataStructure={dataStructure} showActions={showActions} />
               </thead>
               <tbody>
-                <Content records={records} dataStructure={dataStructure} status={status} customRow={customRow} />
+              <Content records={records} dataStructure={dataStructure} status={status} customRow={customRow}
+                       showActions={showActions} />
               </tbody>
             </table>
           </div>

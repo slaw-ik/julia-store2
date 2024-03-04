@@ -1,9 +1,10 @@
 import React from 'react';
 import { prettifyDate } from '../../utils/dateTime';
+import Actions from '../MegaTable/Actions';
 
-type OrderProps = {
+interface OrderProps {
   record: {
-    id?: number;
+    id: number;
     country?: string;
     status?: string;
     state?: string;
@@ -14,10 +15,19 @@ type OrderProps = {
     createdAt?: string;
     nickname?: string;
   };
-};
+}
 
 const Order = ({ record }: OrderProps) => {
-  const { id, state, name, fullAddress, total, note, createdAt, nickname } = record;
+  const {
+    id,
+    state,
+    name,
+    fullAddress,
+    total,
+    note,
+    createdAt,
+    nickname,
+  } = record;
 
   return (
     <tr>
@@ -34,35 +44,7 @@ const Order = ({ record }: OrderProps) => {
       <td>{total}</td>
       <td>{prettifyDate(createdAt)}</td>
       <td>
-        <ul className="list-inline mb-0">
-          <li className="list-inline-item">
-            <a
-              href={`/orders/${id}`}
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Open"
-              className="px-2 text-primary"
-            >
-              <i className="bi bi-folder2-open font-size-18"></i>
-            </a>
-          </li>
-          <li className="list-inline-item">
-            <a
-              href={`/orders/${id}/edit`}
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Edit"
-              className="px-2 text-primary"
-            >
-              <i className="bi bi-pencil font-size-18"></i>
-            </a>
-          </li>
-          <li className="list-inline-item">
-            <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" className="px-2 text-danger">
-              <i className="bi bi-trash font-size-18"></i>
-            </a>
-          </li>
-        </ul>
+        <Actions record={record} resourceName="orders" />
       </td>
     </tr>
   );

@@ -1,12 +1,14 @@
 import React from 'react';
-import { BaseRecord } from './MegaTable';
+import { BaseRecord, ShowActions } from './MegaTable';
+import Actions from './Actions';
 
 interface DefaultRowProps {
   record: BaseRecord;
   keys: string[];
+  showActions?: ShowActions;
 }
 
-const DefaultRow = ({ record, keys }: DefaultRowProps) => {
+const DefaultRow = ({ record, keys, showActions }: DefaultRowProps) => {
   return (
     <tr>
       {keys.map((key) => {
@@ -14,6 +16,11 @@ const DefaultRow = ({ record, keys }: DefaultRowProps) => {
 
         return <td key={key}>{value}</td>;
       })}
+      {showActions && (
+        <td>
+          <Actions record={record} resourceName={showActions.resource} />
+        </td>
+      )}
     </tr>
   );
 };

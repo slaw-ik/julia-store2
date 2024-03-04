@@ -57,6 +57,9 @@ const ClientIndex = () => {
             name: 'Last Name',
           },
         ]}
+        showActions={
+          { resource: 'clients' }
+        }
       />
     </div>
   );
