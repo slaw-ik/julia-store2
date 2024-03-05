@@ -6,9 +6,9 @@ import { selectOrder, selectStatus, fetchOrderAsync, Statuses } from '../../feat
 import { AppDispatch } from '../../app/store';
 import Order from './Order';
 
-type OrderPageProps = {
+interface OrderPageProps {
   id: string;
-};
+}
 
 const OrderPage = ({ id }: OrderPageProps) => {
   const order = useAppSelector(selectOrder);

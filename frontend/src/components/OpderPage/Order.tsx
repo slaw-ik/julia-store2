@@ -1,9 +1,10 @@
 import React from 'react';
 import OrderItem from './OrderItem';
 import { prettifyDate } from '../../utils/dateTime';
+import { OrderStructure } from '../../features/orders/orderSlice';
 
 type OrderProps = {
-  order: any;
+  order: OrderStructure;
 };
 
 const Order = ({ order }: OrderProps) => {

@@ -5,7 +5,8 @@ import OrderIndex from './components/OrderIndex/OrderIndex';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Navbar from './components/Navbar/Navbar';
-import ClientIndex from './components/ClientIndex/ClientIndex';
+import Client from './pages/Client';
+import Clients from './pages/Clients';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/clients',
-    element: <ClientIndex />,
+    element: <Clients />,
+  },
+  {
+    path: '/clients/:id',
+    element: <Client />,
   },
 ]);
 

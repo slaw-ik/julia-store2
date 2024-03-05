@@ -21,8 +21,11 @@ const Content = ({ records, dataStructure, status, customRow, showActions }: Com
     return (
       <>
         {records.map((record: BaseRecord) =>
-          customRow ? customRow(record) :
-            <DefaultRow key={record.id} record={record} keys={keys} showActions={showActions} />,
+          customRow ? (
+            customRow(record)
+          ) : (
+            <DefaultRow key={record.id} record={record} keys={keys} showActions={showActions} />
+          )
         )}
       </>
     );

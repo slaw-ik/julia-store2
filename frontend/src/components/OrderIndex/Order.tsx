@@ -18,16 +18,7 @@ interface OrderProps {
 }
 
 const Order = ({ record }: OrderProps) => {
-  const {
-    id,
-    state,
-    name,
-    fullAddress,
-    total,
-    note,
-    createdAt,
-    nickname,
-  } = record;
+  const { id, state, name, fullAddress, total, note, createdAt, nickname } = record;
 
   return (
     <tr>

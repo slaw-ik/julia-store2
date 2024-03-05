@@ -31,15 +31,15 @@ export interface BaseRecord {
 }
 
 const MegaTable = ({
-                     records,
-                     page,
-                     total,
-                     onPageChanges,
-                     status,
-                     dataStructure,
-                     customRow,
-                     showActions,
-                   }: MegaTableProps) => {
+  records,
+  page,
+  total,
+  onPageChanges,
+  status,
+  dataStructure,
+  customRow,
+  showActions,
+}: MegaTableProps) => {
   return (
     <>
       <div className="row align-items-center">
@@ -65,11 +65,16 @@ const MegaTable = ({
           <div className="table-responsive">
             <table className="table project-list-table table-nowrap align-middle table-borderless">
               <thead>
-              <Header dataStructure={dataStructure} showActions={showActions} />
+                <Header dataStructure={dataStructure} showActions={showActions} />
               </thead>
               <tbody>
-              <Content records={records} dataStructure={dataStructure} status={status} customRow={customRow}
-                       showActions={showActions} />
+                <Content
+                  records={records}
+                  dataStructure={dataStructure}
+                  status={status}
+                  customRow={customRow}
+                  showActions={showActions}
+                />
               </tbody>
             </table>
           </div>

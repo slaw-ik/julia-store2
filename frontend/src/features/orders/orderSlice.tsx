@@ -10,7 +10,7 @@ export enum Statuses {
   Error = 'Error',
 }
 
-export interface OrderState {
+export interface OrderStructure {
   id?: number;
   country?: string;
   status?: string;
@@ -21,10 +21,12 @@ export interface OrderState {
   note?: string;
   created_at?: string;
   nickname?: string;
+  orderItems?: any;
+  phone?: string;
 }
 
 export interface OrdersState {
-  order: OrderState;
+  order: OrderStructure;
   status: Statuses;
 }
 

@@ -57,9 +57,7 @@ const ClientIndex = () => {
             name: 'Last Name',
           },
         ]}
-        showActions={
-          { resource: 'clients' }
-        }
+        showActions={{ resource: 'clients' }}
       />
     </div>
   );
