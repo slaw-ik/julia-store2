@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { fetchClient, fetchClients } from './clientAPI';
+import { createClient, fetchClient, fetchClients, updateClient } from './clientAPI';
 
 export enum Statuses {
   Initial = 'Not fetched',
@@ -22,7 +22,7 @@ export interface AddressStructure {
 }
 
 export interface ClientStructure {
-  id: number;
+  id?: number;
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -59,17 +59,27 @@ export const fetchClientAsync = createAsyncThunk(
   async (payload: string) => await fetchClient(payload)
 );
 
+export const createClientAsync = createAsyncThunk(
+  'clients/createClient',
+  async (payload: ClientStructure) => await createClient(payload)
+);
+
+export const updateClientAsync = createAsyncThunk(
+  'clients/updateClient',
+  async (payload: ClientStructure) => await updateClient(payload)
+);
+
 export const clientSlice = createSlice({
   name: 'client',
   initialState,
   reducers: {
-    updateClient: (state, action: Action) => {
+    updateClientAttrs: (state, action: Action) => {
       state.client = {
         ...state.client,
         [action.payload.fieldName]: action.payload.fieldValue,
       };
     },
-    updateClientsAddress: (state, action: Action) => {
+    updateClientsAddressAttrs: (state, action: Action) => {
       state.client = {
         ...state.client,
         address: {
@@ -89,11 +99,31 @@ export const clientSlice = createSlice({
       })
       .addCase(fetchClientAsync.rejected, (state) => {
         state.status = Statuses.Error;
+      })
+      .addCase(createClientAsync.pending, (state) => {
+        state.status = Statuses.Loading;
+      })
+      .addCase(createClientAsync.fulfilled, (state, action) => {
+        state.client = action.payload;
+        state.status = Statuses.UpToDate;
+      })
+      .addCase(createClientAsync.rejected, (state) => {
+        state.status = Statuses.Error;
+      })
+      .addCase(updateClientAsync.pending, (state) => {
+        state.status = Statuses.Loading;
+      })
+      .addCase(updateClientAsync.fulfilled, (state, action) => {
+        state.client = action.payload;
+        state.status = Statuses.UpToDate;
+      })
+      .addCase(updateClientAsync.rejected, (state) => {
+        state.status = Statuses.Error;
       });
   },
 });
 
-export const { updateClient, updateClientsAddress } = clientSlice.actions;
+export const { updateClientAttrs, updateClientsAddressAttrs } = clientSlice.actions;
 
 export const selectClient = (state: RootState) => state.client.client;
 export const selectStatus = (state: RootState) => state.client.status;

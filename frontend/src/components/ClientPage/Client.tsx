@@ -1,8 +1,14 @@
 import React from 'react';
-import { ClientStructure, updateClient, updateClientsAddress } from '../../features/clients/clientSlice';
+import {
+  ClientStructure,
+  updateClientAsync,
+  updateClientAttrs,
+  updateClientsAddressAttrs,
+} from '../../features/clients/clientSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
+import { updateClient } from '../../features/clients/clientAPI';
 
 interface ClientProps {
   client: ClientStructure;
@@ -19,14 +25,19 @@ const Client = ({ client }: ClientProps) => {
   const handleCancelClick = () => {
     navigate('/clients');
   };
+
+  const handleSubmit = () => {
+    console.log('submit');
+    dispatch(updateClientAsync(client));
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    dispatch(updateClient({ fieldName: name, fieldValue: value }));
+    dispatch(updateClientAttrs({ fieldName: name, fieldValue: value }));
   };
 
   const handleAddressInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    dispatch(updateClientsAddress({ fieldName: name, fieldValue: value }));
+    dispatch(updateClientsAddressAttrs({ fieldName: name, fieldValue: value }));
   };
 
   return (
@@ -42,7 +53,7 @@ const Client = ({ client }: ClientProps) => {
           <button className="btn btn-light btn-sm btn-icon-text" onClick={handleCancelClick}>
             <i className="bi bi-x"></i> <span className="text">Cancel</span>
           </button>
-          <button className="btn btn-primary btn-sm btn-icon-text">
+          <button className="btn btn-primary btn-sm btn-icon-text" onClick={handleSubmit}>
             <i className="bi bi-check"></i> <span className="text">Save</span>
           </button>
         </div>
