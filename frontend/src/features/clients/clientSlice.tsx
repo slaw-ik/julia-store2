@@ -11,7 +11,6 @@ export enum Statuses {
 }
 
 export interface AddressStructure {
-  id: number;
   country?: string;
   city?: string;
   region?: string;
@@ -36,6 +35,16 @@ export interface ClientState {
   status: Statuses;
 }
 
+interface Action {
+  type: string;
+  payload: Payload;
+}
+
+interface Payload {
+  fieldName: string;
+  fieldValue: string;
+}
+
 const initialState: ClientState = {
   client: {
     id: 0,
@@ -53,7 +62,22 @@ export const fetchClientAsync = createAsyncThunk(
 export const clientSlice = createSlice({
   name: 'client',
   initialState,
-  reducers: {},
+  reducers: {
+    updateClient: (state, action: Action) => {
+      state.client = {
+        ...state.client,
+        [action.payload.fieldName]: action.payload.fieldValue,
+      };
+    },
+    updateClientsAddress: (state, action: Action) => {
+      state.client = {
+        ...state.client,
+        address: {
+          [action.payload.fieldName]: action.payload.fieldValue,
+        },
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchClientAsync.pending, (state) => {
@@ -69,7 +93,7 @@ export const clientSlice = createSlice({
   },
 });
 
-export const {} = clientSlice.actions;
+export const { updateClient, updateClientsAddress } = clientSlice.actions;
 
 export const selectClient = (state: RootState) => state.client.client;
 export const selectStatus = (state: RootState) => state.client.status;

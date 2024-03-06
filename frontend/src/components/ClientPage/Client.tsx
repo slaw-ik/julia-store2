@@ -1,32 +1,55 @@
 import React from 'react';
-import { ClientStructure } from '../../features/clients/clientSlice';
+import { ClientStructure, updateClient, updateClientsAddress } from '../../features/clients/clientSlice';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../app/store';
 
 interface ClientProps {
   client: ClientStructure;
 }
 
 const Client = ({ client }: ClientProps) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  const handleCancelClick = () => {
+    navigate('/clients');
+  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    dispatch(updateClient({ fieldName: name, fieldValue: value }));
+  };
+
+  const handleAddressInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    dispatch(updateClientsAddress({ fieldName: name, fieldValue: value }));
+  };
+
   return (
     <div className="container">
-      <div className="d-flex justify-content-between align-items-lg-center py-3 flex-column flex-lg-row">
+      <div className="d-flex justify-content-between align-items-lg-center mb-3 flex-column flex-lg-row">
         <h2 className="h5 mb-3 mb-lg-0">
-          <a href="../../pages/admin/customers.html" className="text-muted">
-            <i className="bi bi-arrow-left-square me-2"></i>
+          <a className="text-muted" onClick={goBack}>
+            <i className="bi bi-arrow-left-square me-2" style={{ cursor: 'pointer' }}></i>
           </a>{' '}
           Create new customer
         </h2>
         <div className="hstack gap-3">
-          <button className="btn btn-light btn-sm btn-icon-text">
+          <button className="btn btn-light btn-sm btn-icon-text" onClick={handleCancelClick}>
             <i className="bi bi-x"></i> <span className="text">Cancel</span>
           </button>
           <button className="btn btn-primary btn-sm btn-icon-text">
-            <i className="bi bi-save"></i> <span className="text">Save</span>
+            <i className="bi bi-check"></i> <span className="text">Save</span>
           </button>
         </div>
       </div>
 
       <div className="row">
-        <div className="col-lg-8">
+        <div className="col-lg-12">
           <div className="card mb-4">
             <div className="card-body">
               <h3 className="h6 mb-4">Basic information</h3>
@@ -34,13 +57,25 @@ const Client = ({ client }: ClientProps) => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">First name</label>
-                    <input type="text" className="form-control" value={client.firstName} />
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="firstName"
+                      value={client.firstName}
+                      onChange={handleInputChange}
+                    />
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Last name</label>
-                    <input type="text" className="form-control" value={client.lastName} />
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="lastName"
+                      value={client.lastName}
+                      onChange={handleInputChange}
+                    />
                   </div>
                 </div>
               </div>
@@ -48,18 +83,31 @@ const Client = ({ client }: ClientProps) => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Email</label>
-                    <input type="email" className="form-control" />
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      value={client.email}
+                      onChange={handleInputChange}
+                    />
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Phone number</label>
-                    <input type="text" className="form-control" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="phone"
+                      value={client.phone}
+                      onChange={handleInputChange}
+                    />
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="card mb-4">
             <div className="card-body">
               <h3 className="h6 mb-4">Address</h3>
@@ -68,235 +116,115 @@ const Client = ({ client }: ClientProps) => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Country</label>
-                    <select
-                      className="select2 form-control select2-hidden-accessible"
-                      data-select2-placeholder="Select country"
-                      data-select2-id="select2-data-1-gy14"
-                      tabIndex={-1}
-                      aria-hidden="true"
-                    >
-                      <option data-select2-id="select2-data-3-ibs9"></option>
-                      <option value="AF">Afghanistan</option>
-                      <option value="BS">Bahamas</option>
-                      <option value="KH">Cambodia</option>
-                      <option value="DK">Denmark</option>
-                      <option value="TL">East Timor</option>
-                      <option value="GM">Gambia</option>
-                    </select>
-                    <span
-                      className="select2 select2-container select2-container--bootstrap-5"
-                      dir="ltr"
-                      data-select2-id="select2-data-2-46y9"
-                      style={{ width: '391px' }}
-                    >
-                      <span className="selection">
-                        <span
-                          className="select2-selection select2-selection--single"
-                          role="combobox"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          tabIndex={0}
-                          aria-disabled="false"
-                          aria-labelledby="select2-vp8l-container"
-                          aria-controls="select2-vp8l-container"
-                        >
-                          <span
-                            className="select2-selection__rendered"
-                            id="select2-vp8l-container"
-                            role="textbox"
-                            aria-readonly="true"
-                            title="Select country"
-                          >
-                            <span className="select2-selection__placeholder">Select country</span>
-                          </span>
-                          <span className="select2-selection__arrow" role="presentation">
-                            <b role="presentation"></b>
-                          </span>
-                        </span>
-                      </span>
-                      <span className="dropdown-wrapper" aria-hidden="true"></span>
-                    </span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="country"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.country}
+                    />
                   </div>
                 </div>
+
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">State</label>
-                    <select
-                      className="select2 form-control select2-hidden-accessible"
-                      data-select2-placeholder="Select state"
-                      data-select2-id="select2-data-4-680y"
-                      tabIndex={-1}
-                      aria-hidden="true"
-                    >
-                      <option data-select2-id="select2-data-6-cshs"></option>
-                      <option value="AL">Alabama</option>
-                      <option value="CA">California</option>
-                      <option value="DE">Delaware</option>
-                      <option value="FL">Florida</option>
-                      <option value="GA">Georgia</option>
-                      <option value="HI">Hawaii</option>
-                      <option value="ID">Idaho</option>
-                      <option value="KS">Kansas</option>
-                    </select>
-                    <span
-                      className="select2 select2-container select2-container--bootstrap-5"
-                      dir="ltr"
-                      data-select2-id="select2-data-5-np4c"
-                      style={{ width: '391px' }}
-                    >
-                      <span className="selection">
-                        <span
-                          className="select2-selection select2-selection--single"
-                          role="combobox"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          tabIndex={0}
-                          aria-disabled="false"
-                          aria-labelledby="select2-2fn7-container"
-                          aria-controls="select2-2fn7-container"
-                        >
-                          <span
-                            className="select2-selection__rendered"
-                            id="select2-2fn7-container"
-                            role="textbox"
-                            aria-readonly="true"
-                            title="Select state"
-                          >
-                            <span className="select2-selection__placeholder">Select state</span>
-                          </span>
-                          <span className="select2-selection__arrow" role="presentation">
-                            <b role="presentation"></b>
-                          </span>
-                        </span>
-                      </span>
-                      <span className="dropdown-wrapper" aria-hidden="true"></span>
-                    </span>
+                    <label className="form-label">Regoin</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="region"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.region}
+                    />
                   </div>
                 </div>
               </div>
+
               <div className="row">
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">City</label>
-                    <select
-                      className="select2 form-control select2-hidden-accessible"
-                      data-select2-placeholder="Select city"
-                      data-select2-id="select2-data-7-809c"
-                      tabIndex={-1}
-                      aria-hidden="true"
-                    >
-                      <option data-select2-id="select2-data-9-k35n"></option>
-                      <option value="b">Bangkok</option>
-                      <option value="d">Dubai</option>
-                      <option value="h">Hong Kong</option>
-                      <option value="k">Kuala Lumpur</option>
-                      <option value="l">London</option>
-                      <option value="n">New York City</option>
-                      <option value="m">Macau</option>
-                      <option value="p">Paris</option>
-                    </select>
-                    <span
-                      className="select2 select2-container select2-container--bootstrap-5"
-                      dir="ltr"
-                      data-select2-id="select2-data-8-3peu"
-                      style={{ width: '391px' }}
-                    >
-                      <span className="selection">
-                        <span
-                          className="select2-selection select2-selection--single"
-                          role="combobox"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          tabIndex={0}
-                          aria-disabled="false"
-                          aria-labelledby="select2-jdfi-container"
-                          aria-controls="select2-jdfi-container"
-                        >
-                          <span
-                            className="select2-selection__rendered"
-                            id="select2-jdfi-container"
-                            role="textbox"
-                            aria-readonly="true"
-                            title="Select city"
-                          >
-                            <span className="select2-selection__placeholder">Select city</span>
-                          </span>
-                          <span className="select2-selection__arrow" role="presentation">
-                            <b role="presentation"></b>
-                          </span>
-                        </span>
-                      </span>
-                      <span className="dropdown-wrapper" aria-hidden="true"></span>
-                    </span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="city"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.city}
+                    />
                   </div>
                 </div>
+
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">ZIP code</label>
-                    <input type="text" className="form-control" value={client.address?.post_code} />
+                    <label className="form-label">Street</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="street"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.street}
+                    />
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4">
-          <div className="card mb-4">
-            <div className="card-body">
-              <h3 className="h6">Status</h3>
-              <select className="form-select">
-                <option value="draft" selected>
-                  Draft
-                </option>
-                <option value="active">Active</option>
-                <option value="active">Inactive</option>
-              </select>
-            </div>
-          </div>
-          <div className="card mb-4">
-            <div className="card-body">
-              <h3 className="h6">Avatar</h3>
-              <input className="form-control" type="file" />
-            </div>
-          </div>
-          <div className="card mb-4">
-            <div className="card-body">
-              <h3 className="h6">Notes</h3>
-              <textarea className="form-control" rows={3}></textarea>
-            </div>
-          </div>
-          <div className="card mb-4">
-            <div className="card-body">
-              <h3 className="h6">Notification Settings</h3>
-              <ul className="list-group list-group-flush mx-n2">
-                <li className="list-group-item px-0 d-flex justify-content-between align-items-start">
-                  <div className="ms-2 me-auto">
-                    <h6 className="mb-0">News and updates</h6>
-                    <small>News about product and feature updates.</small>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Building</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="building"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.building}
+                    />
                   </div>
-                  <div className="form-check form-switch">
-                    <input className="form-check-input" type="checkbox" role="switch" />
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Falt</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="flat"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.flat}
+                    />
                   </div>
-                </li>
-                <li className="list-group-item px-0 d-flex justify-content-between align-items-start">
-                  <div className="ms-2 me-auto">
-                    <h6 className="mb-0">Tips and tutorials</h6>
-                    <small>Tips on getting more out of the platform.</small>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">ZIP code</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="post_code"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.post_code}
+                    />
                   </div>
-                  <div className="form-check form-switch">
-                    <input className="form-check-input" type="checkbox" role="switch" checked />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label className="form-label">Note</label>
+                    <textarea
+                      className="form-control"
+                      rows={3}
+                      name="note"
+                      onChange={handleAddressInputChange}
+                      value={client.address?.note}
+                    ></textarea>
                   </div>
-                </li>
-                <li className="list-group-item px-0 d-flex justify-content-between align-items-start">
-                  <div className="ms-2 me-auto">
-                    <h6 className="mb-0">User Research</h6>
-                    <small>Get involved in our beta testing program.</small>
-                  </div>
-                  <div className="form-check form-switch">
-                    <input className="form-check-input" type="checkbox" role="switch" />
-                  </div>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
