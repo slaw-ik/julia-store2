@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ClientStructure,
   updateClientAsync,
   updateClientAttrs,
   updateClientsAddressAttrs,
@@ -8,7 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
-import { updateClient } from '../../features/clients/clientAPI';
+import { ClientStructure } from '../../features/clients/clientDTOs';
 
 interface ClientProps {
   client: ClientStructure;
@@ -27,7 +26,6 @@ const Client = ({ client }: ClientProps) => {
   };
 
   const handleSubmit = () => {
-    console.log('submit');
     dispatch(updateClientAsync(client));
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -214,9 +212,9 @@ const Client = ({ client }: ClientProps) => {
                     <input
                       type="text"
                       className="form-control"
-                      name="post_code"
+                      name="postCode"
                       onChange={handleAddressInputChange}
-                      value={client.address?.post_code}
+                      value={client.address?.postCode}
                     />
                   </div>
                 </div>

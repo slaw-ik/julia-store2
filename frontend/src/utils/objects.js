@@ -1,35 +1,37 @@
-import _ from 'lodash';
+export const camelToSnake = obj => {
+  if (typeof obj !== 'object' || obj === null) {
+    return obj; // Base case: return non-objects or null as is
+  }
 
-export const snakeCaseKeys = (obj) => {
-  if (!obj) return obj;
-  if (Array.isArray(obj)) return obj.map(snakeCaseKeys);
-  if (typeof obj !== 'object') return obj;
-  return _.mapKeys(obj, (value, key) => _.snakeCase(key));
+  if (Array.isArray(obj)) {
+    // If obj is an array, recursively call camelToSnake on each element
+    return obj.map(camelToSnake);
+  }
+
+  // If obj is an object, transform keys to snake case and recursively call camelToSnake on values
+  return Object.keys(obj).reduce((acc, key) => {
+    const snakeKey = key.replace(/[A-Z]/g, match => `_${match.toLowerCase()}`);
+    acc[snakeKey] = camelToSnake(obj[key]);
+    return acc;
+  }, {});
 };
 
 
-export const deepSnakeCaseKeys = obj => {
-  // Check if obj is null or undefined
-  if (obj === null || obj === undefined) {
-    return obj;
+export const rejectNullValuesDeep = data => {
+  if (Array.isArray(data)) {
+    // If data is an array, recursively process each element
+    return data
+      .map(item => rejectNullValuesDeep(item)) // Recursively process each element
+      .filter(item => item !== null); // Filter out null values
+  } else if (typeof data === 'object' && data !== null) {
+    // If data is an object, recursively process each value
+    return Object.fromEntries(
+      Object.entries(data)
+        .map(([key, value]) => [key, rejectNullValuesDeep(value)]) // Recursively process each value
+        .filter(([, value]) => value !== null), // Filter out null values
+    );
+  } else {
+    // Return data if it's not an array or object or it's null
+    return data;
   }
-
-  // If obj is not a plain object, return it as is
-  if (!(obj instanceof Object && obj.constructor === Object)) {
-    return obj;
-  }
-
-  // If obj is an array, apply deepSnakeCaseKeys to each element
-  if (_.isArray(obj)) {
-    return obj.map(deepSnakeCaseKeys);
-  }
-
-  // Convert object keys to snake case recursively
-  return _.mapKeys(obj, (value, key) => {
-    if (value instanceof Object && value.constructor === Object) {
-      return deepSnakeCaseKeys(value);
-    } else {
-      return _.snakeCase(key);
-    }
-  });
 };

@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { createClient, fetchClient, fetchClients, updateClient } from './clientAPI';
+import { createClient, fetchClient, updateClient } from './clientAPI';
+import { ClientStructure } from './clientDTOs';
+import { rejectNullValuesDeep } from '../../utils/objects';
 
 export enum Statuses {
   Initial = 'Not fetched',
@@ -8,26 +10,6 @@ export enum Statuses {
   UpToDate = 'Up to date',
   Deleted = 'Deleted',
   Error = 'Error',
-}
-
-export interface AddressStructure {
-  country?: string;
-  city?: string;
-  region?: string;
-  street?: string;
-  post_code?: string;
-  building?: string;
-  flat?: string;
-  note?: string;
-}
-
-export interface ClientStructure {
-  id?: number;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  phone?: string;
-  address?: AddressStructure;
 }
 
 export interface ClientState {
@@ -50,23 +32,36 @@ const initialState: ClientState = {
     id: 0,
     firstName: '',
     lastName: '',
+    email: '',
+    phone: '',
+    address: {
+      id: 0,
+      country: '',
+      city: '',
+      region: '',
+      street: '',
+      postCode: '',
+      building: '',
+      flat: '',
+      note: '',
+    },
   },
   status: Statuses.Initial,
 };
 
 export const fetchClientAsync = createAsyncThunk(
   'clients/fetchClient',
-  async (payload: string) => await fetchClient(payload)
+  async (payload: string) => await fetchClient(payload),
 );
 
 export const createClientAsync = createAsyncThunk(
   'clients/createClient',
-  async (payload: ClientStructure) => await createClient(payload)
+  async (payload: ClientStructure) => await createClient(payload),
 );
 
 export const updateClientAsync = createAsyncThunk(
   'clients/updateClient',
-  async (payload: ClientStructure) => await updateClient(payload)
+  async (payload: ClientStructure) => await updateClient(payload),
 );
 
 export const clientSlice = createSlice({
@@ -83,6 +78,7 @@ export const clientSlice = createSlice({
       state.client = {
         ...state.client,
         address: {
+          ...state.client.address,
           [action.payload.fieldName]: action.payload.fieldValue,
         },
       };
@@ -94,7 +90,7 @@ export const clientSlice = createSlice({
         state.status = Statuses.Loading;
       })
       .addCase(fetchClientAsync.fulfilled, (state, action) => {
-        state.client = action.payload;
+        state.client = rejectNullValuesDeep(action.payload);
         state.status = Statuses.UpToDate;
       })
       .addCase(fetchClientAsync.rejected, (state) => {

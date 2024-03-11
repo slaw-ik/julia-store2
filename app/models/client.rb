@@ -14,6 +14,7 @@
 #
 class Client < ApplicationRecord
   belongs_to :address, required: true
+  accepts_nested_attributes_for :address
 
   scope :page, ->(page) { limit(10).offset((page - 1) * 10) }
 

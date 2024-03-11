@@ -1,6 +1,5 @@
 import { ClientsState, ClientState } from './clientsSlice';
-import { ClientStructure } from './clientSlice';
-import { deepSnakeCaseKeys } from '../../utils/objects';
+import { ClientStructure, toActiveRecordStructure } from './clientDTOs';
 
 const API_URL = 'http://localhost:3000';
 
@@ -39,7 +38,7 @@ export async function createClient(payload: ClientStructure) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      client: deepSnakeCaseKeys(payload),
+      client: toActiveRecordStructure(payload),
     }),
   })
     .then((res) => res.json())
@@ -56,7 +55,7 @@ export async function updateClient(payload: ClientStructure) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      client: deepSnakeCaseKeys(payload),
+      client: toActiveRecordStructure(payload),
     }),
   })
     .then((res) => res.json())
