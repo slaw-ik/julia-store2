@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchClients } from './clientAPI';
+import { ClientStructure } from './clientDTOs';
+import { rejectNullValuesDeep } from '../../utils/objects';
 
 export enum Statuses {
   Initial = 'Not fetched',
@@ -10,10 +12,8 @@ export enum Statuses {
   Error = 'Error',
 }
 
-export interface ClientState {
+export interface ClientState extends ClientStructure {
   id: number;
-  firstName?: string;
-  lastName?: string;
 }
 
 export interface ClientsState {
@@ -32,6 +32,19 @@ const initialState: ClientsState = {
         id: 0,
         firstName: '',
         lastName: '',
+        email: '',
+        phone: '',
+        address: {
+          id: 0,
+          country: '',
+          city: '',
+          region: '',
+          street: '',
+          postCode: '',
+          building: '',
+          flat: '',
+          note: '',
+        },
       },
     ],
     page: 1,
@@ -43,7 +56,7 @@ const initialState: ClientsState = {
 
 export const fetchClientsAsync = createAsyncThunk(
   'clients/fetchClients',
-  async (payload: number) => await fetchClients(payload)
+  async (payload: number) => await fetchClients(payload),
 );
 
 export const clientsSlice = createSlice({
@@ -56,7 +69,7 @@ export const clientsSlice = createSlice({
         state.status = Statuses.Loading;
       })
       .addCase(fetchClientsAsync.fulfilled, (state, action) => {
-        state.clients = action.payload;
+        state.clients = rejectNullValuesDeep(action.payload);
         state.status = Statuses.UpToDate;
       })
       .addCase(fetchClientsAsync.rejected, (state) => {

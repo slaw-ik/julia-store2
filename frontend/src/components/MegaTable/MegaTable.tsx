@@ -7,6 +7,7 @@ import './styles.css';
 import Header from './Header';
 
 interface MegaTableProps {
+  resourceName?: string;
   records: BaseRecord[];
   total: number;
   page: number;
@@ -19,6 +20,7 @@ interface MegaTableProps {
 
 export interface ShowActions {
   resource: string;
+  actions: ('show' | 'edit' | 'delete')[];
 }
 export interface DataStructure {
   key: string;
@@ -31,6 +33,7 @@ export interface BaseRecord {
 }
 
 const MegaTable = ({
+  resourceName = 'Records',
   records,
   page,
   total,
@@ -46,7 +49,7 @@ const MegaTable = ({
         <div className="col-md-6">
           <div className="mb-3">
             <h5 className="card-title">
-              Orders <span className="text-muted fw-normal ms-2">({total})</span>
+              {resourceName} <span className="text-muted fw-normal ms-2">({total})</span>
             </h5>
           </div>
         </div>

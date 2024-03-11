@@ -18,7 +18,7 @@ const DefaultRow = ({ record, keys, showActions }: DefaultRowProps) => {
       })}
       {showActions && (
         <td>
-          <Actions record={record} resourceName={showActions.resource} />
+          <Actions record={record} showActions={showActions} />
         </td>
       )}
     </tr>
