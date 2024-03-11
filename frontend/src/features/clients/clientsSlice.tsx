@@ -56,7 +56,7 @@ const initialState: ClientsState = {
 
 export const fetchClientsAsync = createAsyncThunk(
   'clients/fetchClients',
-  async (payload: number) => await fetchClients(payload),
+  async (payload: number) => await fetchClients(payload)
 );
 
 export const clientsSlice = createSlice({

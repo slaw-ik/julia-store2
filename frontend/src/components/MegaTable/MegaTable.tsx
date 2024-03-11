@@ -22,6 +22,7 @@ export interface ShowActions {
   resource: string;
   actions: ('show' | 'edit' | 'delete')[];
 }
+
 export interface DataStructure {
   key: string;
   name: string;
@@ -56,9 +57,9 @@ const MegaTable = ({
         <div className="col-md-6">
           <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
             <div>
-              <button data-bs-toggle="modal" data-bs-target=".add-new" className="btn btn-primary">
+              <a href={`/${showActions?.resource}/new`} className="btn btn-primary">
                 <i className="bi bi-plus-lg"></i> Add New
-              </button>
+              </a>
             </div>
           </div>
         </div>

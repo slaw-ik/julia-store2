@@ -51,17 +51,17 @@ const initialState: ClientState = {
 
 export const fetchClientAsync = createAsyncThunk(
   'clients/fetchClient',
-  async (payload: string) => await fetchClient(payload),
+  async (payload: string) => await fetchClient(payload)
 );
 
 export const createClientAsync = createAsyncThunk(
   'clients/createClient',
-  async (payload: ClientStructure) => await createClient(payload),
+  async (payload: ClientStructure) => await createClient(payload)
 );
 
 export const updateClientAsync = createAsyncThunk(
   'clients/updateClient',
-  async (payload: ClientStructure) => await updateClient(payload),
+  async (payload: ClientStructure) => await updateClient(payload)
 );
 
 export const clientSlice = createSlice({

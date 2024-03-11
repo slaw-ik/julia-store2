@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  createClientAsync,
   updateClientAsync,
   updateClientAttrs,
   updateClientsAddressAttrs,
@@ -26,7 +27,11 @@ const Client = ({ client }: ClientProps) => {
   };
 
   const handleSubmit = () => {
-    dispatch(updateClientAsync(client));
+    if (client.id === 0) {
+      dispatch(createClientAsync(client)).then(() => navigate('/clients'));
+    } else {
+      dispatch(updateClientAsync(client));
+    }
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

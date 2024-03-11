@@ -29,6 +29,10 @@ const router = createBrowserRouter([
     path: '/clients/:id',
     element: <Client />,
   },
+  {
+    path: 'clients/new',
+    element: <Client />,
+  },
 ]);
 
 function App() {

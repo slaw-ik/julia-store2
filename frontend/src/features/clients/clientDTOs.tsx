@@ -57,5 +57,3 @@ export const toActiveRecordStructure = (client: ClientStructure): ClientActiveRe
     },
   };
 };
-
-
