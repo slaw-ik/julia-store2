@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppSelector } from '../../app/hooks';
-import { fetchClientsAsync, selectClients, selectStatus } from '../../features/clients/clientsSlice';
+import { fetchItemsAsync, selectItems, selectStatus } from '../../features/items/itemsSlice';
 import { AppDispatch } from '../../app/store';
 
 import { useSearchParams } from 'react-router-dom';
 import MegaTable from '../MegaTable/MegaTable';
 
-const ClientIndex = () => {
-  const clients = useAppSelector(selectClients);
+const ItemIndex = () => {
+  const items = useAppSelector(selectItems);
   const status = useAppSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -30,17 +30,17 @@ const ClientIndex = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    dispatch(fetchClientsAsync(page));
+    dispatch(fetchItemsAsync(page));
   }, [dispatch, page]);
 
   return (
     <div className="container">
       <MegaTable
         status={status}
-        resourceName="Clients"
-        records={clients.clients}
+        resourceName="Items"
+        records={items.items}
         page={page}
-        total={clients.total}
+        total={items.total}
         onPageChanges={handleOnPageChanges}
         dataStructure={[
           {
@@ -48,18 +48,26 @@ const ClientIndex = () => {
             name: '#',
           },
           {
-            key: 'firstName',
-            name: 'First Name',
+            key: 'name',
+            name: 'Name',
           },
           {
-            key: 'lastName',
-            name: 'Last Name',
+            key: 'description',
+            name: 'Description',
+          },
+          {
+            key: 'count',
+            name: 'Count',
+          },
+          {
+            key: 'price',
+            name: 'Price',
           },
         ]}
-        showActions={{ resource: 'clients', actions: ['show', 'delete'] }}
+        showActions={{ resource: 'items', actions: ['show', 'delete'] }}
       />
     </div>
   );
 };
 
-export default ClientIndex;
+export default ItemIndex;

@@ -3,7 +3,9 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
+    @page = (params[:page] || 1).to_i
+    @total = Item.count
+    @items = Item.all.page(@page)
   end
 
   # GET /items/1 or /items/1.json

@@ -35,14 +35,12 @@ class Order < ApplicationRecord
   has_many :order_items
   has_many :items, through: :order_items
 
-  scope :page, ->(page) { limit(10).offset((page - 1) * 10) }
-
   def update_total(order_item = nil)
     total = 0
     if order_item
       total = order_item.total
     end
-    
+
     update(total: order_items.map(&:total).sum + total)
   end
 
