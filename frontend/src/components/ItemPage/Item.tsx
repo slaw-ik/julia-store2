@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ItemStructure } from '../../features/items/itemDTOs';
+import ItemMovements from './ItemMovements';
 
 interface ItemProps {
   item: ItemStructure;
@@ -95,7 +96,8 @@ const Item = ({ item }: ItemProps) => {
                       className="form-control"
                       name="count"
                       value={item.count}
-                      onChange={handleInputChange}
+                      // onChange={handleInputChange}
+                      disabled
                     />
                   </div>
                 </div>
@@ -117,6 +119,8 @@ const Item = ({ item }: ItemProps) => {
               </div>
             </div>
           </div>
+
+          {item.id !== 0 && <ItemMovements item={item} />}
         </div>
       </div>
     </div>

@@ -1,13 +1,35 @@
+export interface OrderItemStructure {
+  id?: number;
+  count?: number;
+  price?: number;
+  total?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface ItemStructure {
   id?: number;
   name?: string;
   description?: string;
   count?: number;
   price?: number;
+  orderItems: OrderItemStructure[];
 }
 
-export interface ItemActiveRecordStructure extends ItemStructure {}
+export interface ItemActiveRecordStructure {
+  id?: number;
+  name?: string;
+  description?: string;
+  // count?: number;
+  price?: number;
+}
 
-export const toActiveRecordStructure = (client: ItemStructure): ItemActiveRecordStructure => {
-  return client;
+export const toActiveRecordStructure = (item: ItemStructure): ItemActiveRecordStructure => {
+  return {
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    // count: item.count,
+    price: item.price,
+  };
 };

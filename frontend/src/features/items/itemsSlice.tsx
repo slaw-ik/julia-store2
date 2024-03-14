@@ -34,6 +34,7 @@ const initialState: ItemsState = {
         description: '',
         count: 0,
         price: 0,
+        orderItems: [],
       },
     ],
     page: 1,

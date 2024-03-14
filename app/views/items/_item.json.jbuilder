@@ -1,2 +1,7 @@
 json.extract! item, :id, :name, :description, :count, :price, :created_at, :updated_at
-json.url item_url(item, format: :json)
+
+json.order_items do
+  json.array! item.order_items.last(5) do |order_item|
+    json.extract! order_item, :id, :order_id, :count, :price, :total, :created_at, :updated_at
+  end
+end

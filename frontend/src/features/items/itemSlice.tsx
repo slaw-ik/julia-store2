@@ -34,6 +34,7 @@ const initialState: ItemState = {
     description: '',
     count: 0,
     price: 0,
+    orderItems: [],
   },
   status: Statuses.Initial,
 };
