@@ -11,6 +11,7 @@ import Items from './pages/Items';
 import Item from './pages/Item';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import ItemMovements from './pages/ItemMovements';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: '/items/new',
     element: <Item />,
+  },
+  {
+    path: '/items/:id/movements',
+    element: <ItemMovements />,
   },
 ]);
 

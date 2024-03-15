@@ -5,6 +5,7 @@ import clientsReducer from '../features/clients/clientsSlice';
 import clientReducer from '../features/clients/clientSlice';
 import itemsReducer from '../features/items/itemsSlice';
 import itemReducer from '../features/items/itemSlice';
+import orderItemsReducer from '../features/orderItems/orderItemsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     client: clientReducer,
     items: itemsReducer,
     item: itemReducer,
+    orderItems: orderItemsReducer,
   },
 });
 

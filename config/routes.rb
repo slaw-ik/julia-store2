@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :client_orders, controller: :orders, type: "ClientOrder"
 
+  get "items/:id/movements" => "order_items#index", as: :item_movements
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
