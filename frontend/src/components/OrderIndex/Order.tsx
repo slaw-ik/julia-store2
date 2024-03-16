@@ -35,7 +35,7 @@ const Order = ({ record }: OrderProps) => {
       <td>{total}</td>
       <td>{prettifyDate(createdAt)}</td>
       <td>
-        <Actions record={record} showActions={{ resource: 'orders', actions: ['show', 'edit', 'delete'] }} />
+        <Actions record={record} showActions={{ actions: ['show', 'edit', 'delete'] }} resource="orders" />
       </td>
     </tr>
   );

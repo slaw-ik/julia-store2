@@ -3,14 +3,16 @@ import { BaseRecord, ShowActions } from './MegaTable';
 
 interface ActionsProps {
   record: BaseRecord;
+  resource: string;
   showActions: ShowActions;
 }
 
-const Actions = ({ record, showActions }: ActionsProps) => {
+const Actions = ({ record, showActions, resource }: ActionsProps) => {
   const { id } = record;
-  const resourceName = showActions.resource;
-  const showPath = `/${resourceName}/${id}`;
-  const editPath = `/${resourceName}/${id}/edit`;
+  const showPath = `/${resource}/${id}`;
+  const editPath = `/${resource}/${id}/edit`;
+
+  if (!showActions.actions) return null;
 
   return (
     <ul className="list-inline mb-0">

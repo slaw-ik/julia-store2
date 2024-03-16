@@ -41,6 +41,7 @@ const ItemMovementsPage = ({ id }: ItemMovementsPageProps) => {
       <MegaTable
         status={status}
         resourceName="Movements"
+        resource="orderItems"
         records={orderItems.orderItems}
         page={page}
         total={orderItems.total}

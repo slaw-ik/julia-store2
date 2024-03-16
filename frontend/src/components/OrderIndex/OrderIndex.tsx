@@ -41,6 +41,7 @@ const OrderIndex = () => {
       <MegaTable
         status={status}
         resourceName="Orders"
+        resource="orders"
         records={orders.orders}
         page={page}
         total={orders.total}

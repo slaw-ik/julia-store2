@@ -38,6 +38,7 @@ const ItemIndex = () => {
       <MegaTable
         status={status}
         resourceName="Items"
+        resource="items"
         records={items.items}
         page={page}
         total={items.total}
@@ -64,7 +65,7 @@ const ItemIndex = () => {
             name: 'Price',
           },
         ]}
-        showActions={{ resource: 'items', actions: ['show', 'delete'] }}
+        showActions={{ actions: ['show', 'delete'] }}
       />
     </div>
   );

@@ -8,6 +8,7 @@ import Header from './Header';
 
 interface MegaTableProps {
   resourceName?: string;
+  resource: string;
   records: BaseRecord[];
   total: number;
   page: number;
@@ -19,7 +20,6 @@ interface MegaTableProps {
 }
 
 export interface ShowActions {
-  resource: string;
   actions: ('show' | 'edit' | 'delete')[];
 }
 
@@ -35,6 +35,7 @@ export interface BaseRecord {
 
 const MegaTable = ({
   resourceName = 'Records',
+  resource,
   records,
   page,
   total,
@@ -57,7 +58,7 @@ const MegaTable = ({
         <div className="col-md-6">
           <div className="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
             <div>
-              <a href={`/${showActions?.resource}/new`} className="btn btn-primary">
+              <a href={`/${resource}/new`} className="btn btn-primary">
                 <i className="bi bi-plus-lg"></i> Add New
               </a>
             </div>
@@ -73,6 +74,7 @@ const MegaTable = ({
               </thead>
               <tbody>
                 <Content
+                  resource={resource}
                   records={records}
                   dataStructure={dataStructure}
                   status={status}

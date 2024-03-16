@@ -100,7 +100,7 @@ export const clientSlice = createSlice({
         state.status = Statuses.Loading;
       })
       .addCase(createClientAsync.fulfilled, (state, action) => {
-        state.client = action.payload;
+        state.client = rejectNullValuesDeep(action.payload);
         state.status = Statuses.UpToDate;
       })
       .addCase(createClientAsync.rejected, (state) => {
@@ -110,7 +110,7 @@ export const clientSlice = createSlice({
         state.status = Statuses.Loading;
       })
       .addCase(updateClientAsync.fulfilled, (state, action) => {
-        state.client = action.payload;
+        state.client = rejectNullValuesDeep(action.payload);
         state.status = Statuses.UpToDate;
       })
       .addCase(updateClientAsync.rejected, (state) => {

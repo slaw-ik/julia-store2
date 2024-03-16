@@ -4,11 +4,12 @@ import Actions from './Actions';
 
 interface DefaultRowProps {
   record: BaseRecord;
+  resource: string;
   keys: string[];
   showActions?: ShowActions;
 }
 
-const DefaultRow = ({ record, keys, showActions }: DefaultRowProps) => {
+const DefaultRow = ({ record, keys, showActions, resource }: DefaultRowProps) => {
   return (
     <tr>
       {keys.map((key) => {
@@ -18,7 +19,7 @@ const DefaultRow = ({ record, keys, showActions }: DefaultRowProps) => {
       })}
       {showActions && (
         <td>
-          <Actions record={record} showActions={showActions} />
+          <Actions record={record} showActions={showActions} resource={resource} />
         </td>
       )}
     </tr>

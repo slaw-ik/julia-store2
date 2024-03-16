@@ -6,13 +6,14 @@ import { BaseRecord, DataStructure, ShowActions } from './MegaTable';
 
 interface ComponentProps {
   records: BaseRecord[];
+  resource: string;
   dataStructure: DataStructure[];
   status: string;
   customRow?: (record: BaseRecord) => JSX.Element;
   showActions?: ShowActions;
 }
 
-const Content = ({ records, dataStructure, status, customRow, showActions }: ComponentProps) => {
+const Content = ({ records, resource, dataStructure, status, customRow, showActions }: ComponentProps) => {
   const keys: string[] = dataStructure.map((data: DataStructure) => data.key);
 
   if (status !== Statuses.UpToDate) {
@@ -24,7 +25,7 @@ const Content = ({ records, dataStructure, status, customRow, showActions }: Com
           customRow ? (
             customRow(record)
           ) : (
-            <DefaultRow key={record.id} record={record} keys={keys} showActions={showActions} />
+            <DefaultRow key={record.id} record={record} keys={keys} showActions={showActions} resource={resource} />
           )
         )}
       </>
