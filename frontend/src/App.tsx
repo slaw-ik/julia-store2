@@ -1,17 +1,18 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import Home from './pages/Home';
 import Order from './pages/Order';
-
 import OrderIndex from './components/OrderIndex/OrderIndex';
 import Navbar from './components/Navbar/Navbar';
 import Client from './pages/Client';
 import Clients from './pages/Clients';
 import Items from './pages/Items';
 import Item from './pages/Item';
+import ItemMovements from './pages/ItemMovements';
+import NewOrder from './pages/NewOrder';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import ItemMovements from './pages/ItemMovements';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/orders',
     element: <OrderIndex />,
+  },
+  {
+    path: '/orders/new',
+    element: <NewOrder />,
   },
   {
     path: '/clients',

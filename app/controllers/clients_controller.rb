@@ -8,6 +8,15 @@ class ClientsController < ApplicationController
     @clients = Client.all.page(@page)
   end
 
+  def search
+    # @page = (params[:page] || 1).to_i
+    # @clients = Client.search(params[:promt]).page(@page)
+    @clients = Client.search(params[:promt])
+    @total = @clients.count
+
+    render :index
+  end
+
   # GET /clients/1 or /clients/1.json
   def show
   end

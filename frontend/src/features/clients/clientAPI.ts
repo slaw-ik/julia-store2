@@ -17,6 +17,20 @@ export async function fetchClients(page: number) {
     });
 }
 
+export async function searchClients(promt: string) {
+  return fetch(`${API_URL}/clients/search.json?promt=${promt}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log('Error: ', err);
+      return {} as ClientsState;
+    });
+}
+
 export async function fetchClient(clientId: string) {
   return fetch(`${API_URL}/clients/${clientId}.json`, {
     method: 'GET',

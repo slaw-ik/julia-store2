@@ -8,6 +8,7 @@ export interface AddressStructure {
   building?: string;
   flat?: string;
   note?: string;
+  fullAddress?: string;
 }
 
 export interface ClientStructure {

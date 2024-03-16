@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   resources :orders
-  resources :clients
   resources :suppliers
   resources :addresses
   resources :items
   resources :users
+
+  resources :clients do
+    get :search, on: :collection
+  end
 
   resources :client_orders, controller: :orders, type: "ClientOrder"
 

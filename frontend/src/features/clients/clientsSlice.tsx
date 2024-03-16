@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { fetchClients } from './clientAPI';
+import { fetchClients, searchClients } from './clientAPI';
 import { ClientStructure } from './clientDTOs';
 import { rejectNullValuesDeep } from '../../utils/objects';
 
@@ -44,6 +44,7 @@ const initialState: ClientsState = {
           building: '',
           flat: '',
           note: '',
+          fullAddress: '',
         },
       },
     ],
@@ -57,6 +58,11 @@ const initialState: ClientsState = {
 export const fetchClientsAsync = createAsyncThunk(
   'clients/fetchClients',
   async (payload: number) => await fetchClients(payload)
+);
+
+export const searchClientsAsync = createAsyncThunk(
+  'clients/searchClients',
+  async (payload: string) => await searchClients(payload)
 );
 
 export const clientsSlice = createSlice({
@@ -73,6 +79,16 @@ export const clientsSlice = createSlice({
         state.status = Statuses.UpToDate;
       })
       .addCase(fetchClientsAsync.rejected, (state) => {
+        state.status = Statuses.Error;
+      })
+      .addCase(searchClientsAsync.pending, (state) => {
+        state.status = Statuses.Loading;
+      })
+      .addCase(searchClientsAsync.fulfilled, (state, action) => {
+        state.clients = rejectNullValuesDeep(action.payload);
+        state.status = Statuses.UpToDate;
+      })
+      .addCase(searchClientsAsync.rejected, (state) => {
         state.status = Statuses.Error;
       });
   },

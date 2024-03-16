@@ -16,6 +16,14 @@ class Client < ApplicationRecord
   belongs_to :address, required: true
   accepts_nested_attributes_for :address
 
+  def self.search(search)
+    if search
+      where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR phone LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+    else
+      all
+    end
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
