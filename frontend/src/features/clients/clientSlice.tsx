@@ -22,6 +22,11 @@ interface Action {
   payload: Payload;
 }
 
+interface ClientAction {
+  type: string;
+  payload: ClientStructure;
+}
+
 interface Payload {
   fieldName: string;
   fieldValue: string;
@@ -68,6 +73,9 @@ export const clientSlice = createSlice({
   name: 'client',
   initialState,
   reducers: {
+    setClient: (state, action: ClientAction) => {
+      state.client = action.payload;
+    },
     updateClientAttrs: (state, action: Action) => {
       state.client = {
         ...state.client,
@@ -119,7 +127,7 @@ export const clientSlice = createSlice({
   },
 });
 
-export const { updateClientAttrs, updateClientsAddressAttrs } = clientSlice.actions;
+export const { setClient, updateClientAttrs, updateClientsAddressAttrs } = clientSlice.actions;
 
 export const selectClient = (state: RootState) => state.client.client;
 export const selectStatus = (state: RootState) => state.client.status;
