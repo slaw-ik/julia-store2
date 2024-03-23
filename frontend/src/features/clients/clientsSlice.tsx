@@ -27,29 +27,9 @@ export interface ClientsState {
 
 const initialState: ClientsState = {
   clients: {
-    clients: [
-      {
-        id: 0,
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        address: {
-          id: 0,
-          country: '',
-          city: '',
-          region: '',
-          street: '',
-          postCode: '',
-          building: '',
-          flat: '',
-          note: '',
-          fullAddress: '',
-        },
-      },
-    ],
+    clients: [],
     page: 1,
-    total: 1,
+    total: 0,
   },
 
   status: Statuses.Initial,
@@ -68,7 +48,11 @@ export const searchClientsAsync = createAsyncThunk(
 export const clientsSlice = createSlice({
   name: 'clients',
   initialState,
-  reducers: {},
+  reducers: {
+    clearClients: (state) => {
+      state.clients.clients = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchClientsAsync.pending, (state) => {
@@ -94,7 +78,7 @@ export const clientsSlice = createSlice({
   },
 });
 
-export const {} = clientsSlice.actions;
+export const { clearClients } = clientsSlice.actions;
 
 export const selectClients = (state: RootState) => state.clients.clients;
 export const selectStatus = (state: RootState) => state.clients.status;

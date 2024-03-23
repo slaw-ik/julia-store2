@@ -17,10 +17,10 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :address
 
   def self.search(search)
-    if search
+    if search.present?
       where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR phone LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
     else
-      all
+      []
     end
   end
 
