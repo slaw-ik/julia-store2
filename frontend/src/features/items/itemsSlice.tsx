@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { fetchItems } from './itemAPI';
+import { fetchItems, searchItems } from './itemAPI';
 import { rejectNullValuesDeep } from '../../utils/objects';
 import { ItemStructure } from './itemDTOs';
 
@@ -48,10 +48,19 @@ export const fetchItemsAsync = createAsyncThunk(
   async (payload: number) => await fetchItems(payload)
 );
 
+export const searchItemsAsync = createAsyncThunk(
+  'clients/searchItems',
+  async (payload: string) => await searchItems(payload)
+);
+
 export const itemsSlice = createSlice({
   name: 'items',
   initialState,
-  reducers: {},
+  reducers: {
+    clearItems: (state) => {
+      state.items.items = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchItemsAsync.pending, (state) => {
@@ -63,11 +72,21 @@ export const itemsSlice = createSlice({
       })
       .addCase(fetchItemsAsync.rejected, (state) => {
         state.status = Statuses.Error;
+      })
+      .addCase(searchItemsAsync.pending, (state) => {
+        state.status = Statuses.Loading;
+      })
+      .addCase(searchItemsAsync.fulfilled, (state, action) => {
+        state.items = rejectNullValuesDeep(action.payload);
+        state.status = Statuses.UpToDate;
+      })
+      .addCase(searchItemsAsync.rejected, (state) => {
+        state.status = Statuses.Error;
       });
   },
 });
 
-export const {} = itemsSlice.actions;
+export const { clearItems } = itemsSlice.actions;
 
 export const selectItems = (state: RootState) => state.items.items;
 export const selectStatus = (state: RootState) => state.items.status;

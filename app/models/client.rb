@@ -18,7 +18,7 @@ class Client < ApplicationRecord
 
   def self.search(search)
     if search.present?
-      where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR phone LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+      where('first_name ILIKE ? OR last_name ILIKE ? OR email LIKE ? OR phone LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
     else
       []
     end

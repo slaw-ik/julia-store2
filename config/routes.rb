@@ -2,10 +2,13 @@ Rails.application.routes.draw do
   resources :orders
   resources :suppliers
   resources :addresses
-  resources :items
   resources :users
 
   resources :clients do
+    get :search, on: :collection
+  end
+
+  resources :items do
     get :search, on: :collection
   end
 

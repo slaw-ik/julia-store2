@@ -22,6 +22,11 @@ interface Action {
   payload: Payload;
 }
 
+interface ItemAction {
+  type: string;
+  payload: ItemStructure;
+}
+
 interface Payload {
   fieldName: string;
   fieldValue: string;
@@ -55,6 +60,9 @@ export const itemSlice = createSlice({
   name: 'item',
   initialState,
   reducers: {
+    setItem: (state, action: ItemAction) => {
+      state.item = action.payload;
+    },
     updateItemAttrs: (state, action: Action) => {
       state.item = {
         ...state.item,
@@ -97,7 +105,7 @@ export const itemSlice = createSlice({
   },
 });
 
-export const { updateItemAttrs } = itemSlice.actions;
+export const { setItem, updateItemAttrs } = itemSlice.actions;
 
 export const selectItem = (state: RootState) => state.item.item;
 export const selectStatus = (state: RootState) => state.item.status;

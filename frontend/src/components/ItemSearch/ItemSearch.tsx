@@ -1,19 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  clearClients,
-  searchClientsAsync,
-  selectClients,
-  selectStatus,
-  Statuses,
-} from '../../features/clients/clientsSlice';
+import { clearItems, searchItemsAsync, selectItems, selectStatus, Statuses } from '../../features/items/itemsSlice';
 import { useAppSelector } from '../../app/hooks';
-import { setClient } from '../../features/clients/clientSlice';
+import { setItem } from '../../features/items/itemSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
-import { ClientStructure } from '../../features/clients/clientDTOs';
+import { ItemStructure } from '../../features/items/itemDTOs';
 
 const ItemSearch = () => {
-  const clients = useAppSelector(selectClients);
+  const items = useAppSelector(selectItems);
   const status = useAppSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -23,7 +17,7 @@ const ItemSearch = () => {
   const ref = useRef<HTMLInputElement>(null);
 
   const handleSearch = () => {
-    dispatch(searchClientsAsync(search));
+    dispatch(searchItemsAsync(search));
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -44,16 +38,16 @@ const ItemSearch = () => {
   const clearSearch = () => {
     setSearch('');
     setSearchResultsVisibility(false);
-    dispatch(clearClients());
+    dispatch(clearItems());
   };
 
-  const handleSearchResultClick = (client: ClientStructure) => {
-    dispatch(setClient(client));
+  const handleSearchResultClick = (item: ItemStructure) => {
+    dispatch(setItem(item));
   };
 
   useEffect(() => {
     handleInputClick();
-  }, [clients.clients]);
+  }, [items.items]);
 
   return (
     <div className="col-lg-12">
@@ -92,15 +86,13 @@ const ItemSearch = () => {
               {status === Statuses.Loading && <div>Loading...</div>}
               {status === Statuses.Error && <div>Error</div>}
               {status === Statuses.UpToDate &&
-                clients.clients.map((client) => (
-                  <div className="well search-result" key={client.id}>
+                items.items.map((item) => (
+                  <div className="well search-result" key={item.id}>
                     <div className="row">
-                      <a href="#" onMouseDown={() => handleSearchResultClick(client)}>
+                      <a href="#" onMouseDown={() => handleSearchResultClick(item)}>
                         <div className="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
-                          <h6>
-                            {client.firstName} {client.lastName}
-                          </h6>
-                          <p>{client.address?.fullAddress}</p>
+                          <h6>{item.name}</h6>
+                          <p>{item.price} EUR</p>
                         </div>
                       </a>
                     </div>

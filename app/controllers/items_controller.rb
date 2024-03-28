@@ -8,6 +8,15 @@ class ItemsController < ApplicationController
     @items = Item.all.page(@page)
   end
 
+  def search
+    # @page = (params[:page] || 1).to_i
+    # @clients = Client.search(params[:promt]).page(@page)
+    @items = Item.search(params[:promt])
+    @total = @items.count
+
+    render :index
+  end
+
   # GET /items/1 or /items/1.json
   def show
   end
@@ -60,13 +69,14 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def item_params
-      params.require(:item).permit(:name, :description, :count, :price)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def item_params
+    params.require(:item).permit(:name, :description, :count, :price)
+  end
 end

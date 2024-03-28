@@ -17,6 +17,20 @@ export async function fetchItems(page: number) {
     });
 }
 
+export async function searchItems(promt: string) {
+  return fetch(`${API_URL}/items/search.json?promt=${promt}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log('Error: ', err);
+      return {} as ItemsState;
+    });
+}
+
 export async function fetchItem(itemId: string) {
   return fetch(`${API_URL}/items/${itemId}.json`, {
     method: 'GET',
