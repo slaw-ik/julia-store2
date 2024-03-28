@@ -23,6 +23,7 @@ const ClientForm = () => {
       <div className="card mb-4">
         <div className="card-body">
           <h3 className="h6 mb-4">Basic information</h3>
+
           <div className="row">
             <div className="col-lg-6">
               <div className="mb-3">
@@ -62,6 +63,7 @@ const ClientForm = () => {
                 />
               </div>
             </div>
+
             <div className="col-lg-6">
               <div className="mb-3">
                 <label className="form-label">Phone number</label>

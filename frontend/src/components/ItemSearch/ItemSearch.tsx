@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ClientStructure } from '../../features/clients/clientDTOs';
 
-const UserSearch = () => {
+const ItemSearch = () => {
   const clients = useAppSelector(selectClients);
   const status = useAppSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
@@ -65,7 +65,7 @@ const UserSearch = () => {
                 ref={ref}
                 type="text"
                 className="form-control"
-                placeholder="Client Search"
+                placeholder="Item Search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyUp={(e) => handleKeyUp(e)}
@@ -114,4 +114,4 @@ const UserSearch = () => {
   );
 };
 
-export default UserSearch;
+export default ItemSearch;
