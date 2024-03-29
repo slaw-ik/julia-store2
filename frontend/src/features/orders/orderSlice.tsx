@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchOrder } from './orderAPI';
+import { ClientStructure } from '../clients/clientDTOs';
+import { ItemStructure } from '../items/itemDTOs';
 
 export enum Statuses {
   Initial = 'Not fetched',
@@ -12,22 +14,38 @@ export enum Statuses {
 
 export interface OrderStructure {
   id?: number;
-  country?: string;
   status?: string;
-  state?: string;
-  name?: string;
-  fullAddress?: string;
   total?: string;
-  note?: string;
-  created_at?: string;
-  nickname?: string;
   orderItems?: any;
+  clientId?: number;
+  client?: ClientStructure;
+  country?: string;
+  state?: string;
+  note?: string;
   phone?: string;
+  city?: string;
+  region?: string;
+  street?: string;
+  postCode?: string;
+  building?: string;
+  flat?: string;
+  fullAddress?: string;
+  createdAt?: string;
 }
 
 export interface OrdersState {
   order: OrderStructure;
   status: Statuses;
+}
+
+interface OrderAction {
+  type: string;
+  payload: OrderStructure;
+}
+
+interface OrderItemsAction {
+  type: string;
+  payload: ItemStructure[];
 }
 
 const initialState: OrdersState = {
@@ -48,7 +66,17 @@ export const fetchOrderAsync = createAsyncThunk(
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    updateOrder: (state, action: OrderAction) => {
+      state.order = action.payload;
+    },
+    updateOrderItems: (state, action: OrderItemsAction) => {
+      state.order = {
+        ...state.order,
+        orderItems: action.payload,
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrderAsync.pending, (state) => {
@@ -64,7 +92,7 @@ export const orderSlice = createSlice({
   },
 });
 
-export const {} = orderSlice.actions;
+export const { updateOrder, updateOrderItems } = orderSlice.actions;
 
 export const selectOrder = (state: RootState) => state.order.order;
 export const selectStatus = (state: RootState) => state.order.status;

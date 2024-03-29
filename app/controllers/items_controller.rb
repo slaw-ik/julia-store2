@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   def index
     @page = (params[:page] || 1).to_i
     @total = Item.count
-    @items = Item.all.page(@page)
+    @items = Item.includes(:order_items).all.page(@page)
   end
 
   def search
@@ -13,8 +13,6 @@ class ItemsController < ApplicationController
     # @clients = Client.search(params[:promt]).page(@page)
     @items = Item.search(params[:promt])
     @total = @items.count
-
-    render :index
   end
 
   # GET /items/1 or /items/1.json

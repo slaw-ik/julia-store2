@@ -20,7 +20,7 @@ const ClientForm = () => {
 
   return (
     <div className="col-lg-12">
-      <div className="card mb-4">
+      <div className="card card border shadow-none mb-4">
         <div className="card-body">
           <h3 className="h6 mb-4">Basic information</h3>
 
@@ -80,7 +80,7 @@ const ClientForm = () => {
         </div>
       </div>
 
-      <div className="card mb-4">
+      <div className="card card border shadow-none mb-4">
         <div className="card-body">
           <h3 className="h6 mb-4">Address</h3>
 

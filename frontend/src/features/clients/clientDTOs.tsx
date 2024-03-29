@@ -15,6 +15,8 @@ export interface ClientStructure {
   id?: number;
   firstName?: string;
   lastName?: string;
+  nickname?: string;
+  name?: string;
   email?: string;
   phone?: string;
   address?: AddressStructure;

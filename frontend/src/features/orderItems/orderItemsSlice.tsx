@@ -55,7 +55,17 @@ export const fetchOrderItemsAsync = createAsyncThunk(
 export const itemsSlice = createSlice({
   name: 'orderItems',
   initialState,
-  reducers: {},
+  reducers: {
+    // addOrderItem: (state, action: OrderAction) => {
+    //   state.order = action.payload;
+    // },
+    // updateOrderItem: (state, action: OrderAction) => {
+    //   state.order = action.payload;
+    // },
+    // deleteOrderItem: (state, action: OrderAction) => {
+    //   state.order = action.payload;
+    // },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrderItemsAsync.pending, (state) => {

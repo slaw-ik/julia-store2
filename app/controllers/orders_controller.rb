@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   def index
     @page = (params[:page] || 1).to_i
     @total = ClientOrder.count
-    @client_orders = ClientOrder.all.page(@page)
+    @client_orders = ClientOrder.joins({ client: [:address] }).all.page(@page)
     # @supplier_orders = SupplierOrder.all
 
   end
@@ -63,13 +63,14 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.require(:order).permit(:user_id, :supplier_id, :client_id, :type, :state, :total, :country, :city, :region, :street, :post_code, :building, :flat, :note)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def order_params
+    params.require(:order).permit(:user_id, :supplier_id, :client_id, :type, :state, :total, :country, :city, :region, :street, :post_code, :building, :flat, :note)
+  end
 end

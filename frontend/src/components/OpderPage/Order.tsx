@@ -23,7 +23,7 @@ const Order = ({ order }: OrderProps) => {
             <div className="card-body">
               <div className="mb-3 d-flex justify-content-between">
                 <div>
-                  <span className="me-3">{prettifyDate(order.created_at)}</span>
+                  <span className="me-3">{prettifyDate(order.createdAt)}</span>
                   <span className="badge rounded-pill">{order.state}</span>
                 </div>
                 <div className="d-flex">
@@ -89,10 +89,10 @@ const Order = ({ order }: OrderProps) => {
               <h3 className="h6">Address</h3>
               <address>
                 <i className="bi bi-instagram"></i>
-                <strong>{order.nickname}</strong>
+                <strong>{order.client?.nickname}</strong>
                 <br />
                 <i className="bi bi-person-fill"></i>
-                <strong>{order.name}</strong>
+                <strong>{order.client?.name}</strong>
                 <br />
                 <i className="bi bi-house-door-fill"></i>
                 {order.fullAddress}

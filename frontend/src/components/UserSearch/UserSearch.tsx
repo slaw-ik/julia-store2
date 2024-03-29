@@ -12,7 +12,11 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ClientStructure } from '../../features/clients/clientDTOs';
 
-const UserSearch = () => {
+interface UserSearchProps {
+  onUserSelect?: (client: ClientStructure) => void;
+}
+
+const UserSearch = ({ onUserSelect }: UserSearchProps) => {
   const clients = useAppSelector(selectClients);
   const status = useAppSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
@@ -49,6 +53,7 @@ const UserSearch = () => {
 
   const handleSearchResultClick = (client: ClientStructure) => {
     dispatch(setClient(client));
+    if (onUserSelect) onUserSelect(client);
   };
 
   useEffect(() => {
