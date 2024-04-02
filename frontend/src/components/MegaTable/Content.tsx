@@ -1,8 +1,8 @@
 import React from 'react';
-import { Statuses } from '../../features/orders/ordersSlice';
 import Loader from './Loader';
 import DefaultRow from './DefaultRow';
 import { BaseRecord, DataStructure, ShowActions } from './MegaTable';
+import { Statuses } from '../../features/API';
 
 interface ComponentProps {
   records: BaseRecord[];

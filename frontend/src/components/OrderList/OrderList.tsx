@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppSelector } from '../../app/hooks';
-import { fetchOrdersAsync, OrderState, selectOrders, selectStatus, Statuses } from '../../features/orders/ordersSlice';
+import { fetchOrdersAsync, OrderState, selectOrders, selectStatus } from '../../features/orders/ordersSlice';
 import { AppDispatch } from '../../app/store';
 import Order from './Order';
+import { Statuses } from '../../features/API';
 
 function OrderList() {
   const orders = useAppSelector(selectOrders);

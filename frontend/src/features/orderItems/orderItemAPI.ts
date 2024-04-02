@@ -1,6 +1,5 @@
 import { FetchOrderItemsPayload, OrderItemsState } from './orderItemsSlice';
-
-const API_URL = 'http://localhost:3000';
+import { API_URL } from '../API';
 
 export async function fetchOrderItems({ itemId, page }: FetchOrderItemsPayload) {
   return fetch(`${API_URL}/items/${itemId}/movements.json?page=${page}`, {

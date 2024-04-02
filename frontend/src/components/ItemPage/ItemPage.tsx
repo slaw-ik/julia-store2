@@ -3,7 +3,8 @@ import Item from './Item';
 import { useAppSelector } from '../../app/hooks';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
-import { fetchItemAsync, selectItem, selectStatus, Statuses } from '../../features/items/itemSlice';
+import { fetchItemAsync, selectItem, selectStatus } from '../../features/items/itemSlice';
+import { Statuses } from '../../features/API';
 
 interface ItemPageProps {
   id: string;

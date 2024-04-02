@@ -3,14 +3,7 @@ import { RootState } from '../../app/store';
 import { createClient, fetchClient, updateClient } from './clientAPI';
 import { ClientStructure } from './clientDTOs';
 import { rejectNullValuesDeep } from '../../utils/objects';
-
-export enum Statuses {
-  Initial = 'Not fetched',
-  Loading = 'Loading...',
-  UpToDate = 'Up to date',
-  Deleted = 'Deleted',
-  Error = 'Error',
-}
+import { Statuses } from '../API';
 
 export interface ClientState {
   client: ClientStructure;

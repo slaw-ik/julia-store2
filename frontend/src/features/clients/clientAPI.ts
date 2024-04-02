@@ -1,7 +1,6 @@
 import { ClientsState, ClientState } from './clientsSlice';
 import { ClientStructure, toActiveRecordStructure } from './clientDTOs';
-
-const API_URL = 'http://localhost:3000';
+import { API_URL } from '../API';
 
 export async function fetchClients(page: number) {
   return fetch(`${API_URL}/clients.json?page=${page}`, {

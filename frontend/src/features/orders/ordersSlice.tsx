@@ -1,14 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchOrders } from './orderAPI';
-
-export enum Statuses {
-  Initial = 'Not fetched',
-  Loading = 'Loading...',
-  UpToDate = 'Up to date',
-  Deleted = 'Deleted',
-  Error = 'Error',
-}
+import { Statuses } from '../API';
 
 export interface OrderState {
   id: number;

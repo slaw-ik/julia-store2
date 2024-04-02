@@ -3,7 +3,8 @@ import Client from './Client';
 import { useAppSelector } from '../../app/hooks';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
-import { fetchClientAsync, selectClient, selectStatus, Statuses } from '../../features/clients/clientSlice';
+import { fetchClientAsync, selectClient, selectStatus } from '../../features/clients/clientSlice';
+import { Statuses } from '../../features/API';
 
 interface ClientPageProps {
   id: string;

@@ -1,6 +1,5 @@
 import {OrdersState, OrderState} from "./ordersSlice";
-
-const API_URL = "http://localhost:3000";
+import { API_URL } from '../API';
 
 export async function fetchOrders(page: number) {
     return fetch(`${API_URL}/orders.json?page=${page}`, {

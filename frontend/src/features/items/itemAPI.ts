@@ -1,7 +1,6 @@
 import { ItemsState, ItemState } from './itemsSlice';
 import { ItemStructure, toActiveRecordStructure } from './itemDTOs';
-
-const API_URL = 'http://localhost:3000';
+import { API_URL } from '../API';
 
 export async function fetchItems(page: number) {
   return fetch(`${API_URL}/items.json?page=${page}`, {

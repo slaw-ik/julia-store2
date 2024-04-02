@@ -3,14 +3,7 @@ import { RootState } from '../../app/store';
 import { fetchOrder } from './orderAPI';
 import { ClientStructure } from '../clients/clientDTOs';
 import { ItemStructure } from '../items/itemDTOs';
-
-export enum Statuses {
-  Initial = 'Not fetched',
-  Loading = 'Loading...',
-  UpToDate = 'Up to date',
-  Deleted = 'Deleted',
-  Error = 'Error',
-}
+import { Statuses } from '../API';
 
 export interface OrderStructure {
   id?: number;

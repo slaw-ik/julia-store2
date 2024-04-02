@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppSelector } from '../../app/hooks';
-import { selectOrder, selectStatus, fetchOrderAsync, Statuses } from '../../features/orders/orderSlice';
+import { selectOrder, selectStatus, fetchOrderAsync } from '../../features/orders/orderSlice';
 import { AppDispatch } from '../../app/store';
 import Order from './Order';
+import { Statuses } from '../../features/API';
 
 interface OrderPageProps {
   id: string;

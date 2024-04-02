@@ -3,14 +3,7 @@ import { RootState } from '../../app/store';
 import { createItem, fetchItem, updateItem } from './itemAPI';
 import { ItemStructure } from './itemDTOs';
 import { rejectNullValuesDeep } from '../../utils/objects';
-
-export enum Statuses {
-  Initial = 'Not fetched',
-  Loading = 'Loading...',
-  UpToDate = 'Up to date',
-  Deleted = 'Deleted',
-  Error = 'Error',
-}
+import { Statuses } from '../API';
 
 export interface ItemState {
   item: ItemStructure;

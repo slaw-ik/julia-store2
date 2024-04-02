@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { clearItems, searchItemsAsync, selectItems, selectStatus, Statuses } from '../../features/items/itemsSlice';
+import { clearItems, searchItemsAsync, selectItems, selectStatus } from '../../features/items/itemsSlice';
 import { useAppSelector } from '../../app/hooks';
 import { setItem } from '../../features/items/itemSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ItemStructure } from '../../features/items/itemDTOs';
+import { Statuses } from '../../features/API';
 
 const ItemSearch = () => {
   const items = useAppSelector(selectItems);

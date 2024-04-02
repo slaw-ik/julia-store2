@@ -1,16 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  clearClients,
-  searchClientsAsync,
-  selectClients,
-  selectStatus,
-  Statuses,
-} from '../../features/clients/clientsSlice';
+import { clearClients, searchClientsAsync, selectClients, selectStatus } from '../../features/clients/clientsSlice';
 import { useAppSelector } from '../../app/hooks';
 import { setClient } from '../../features/clients/clientSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ClientStructure } from '../../features/clients/clientDTOs';
+import { Statuses } from '../../features/API';
 
 interface UserSearchProps {
   onUserSelect?: (client: ClientStructure) => void;
