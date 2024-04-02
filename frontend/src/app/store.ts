@@ -6,6 +6,7 @@ import clientReducer from '../features/clients/clientSlice';
 import itemsReducer from '../features/items/itemsSlice';
 import itemReducer from '../features/items/itemSlice';
 import orderItemsReducer from '../features/orderItems/orderItemsSlice';
+import itemMovementsReducer from '../features/itemMovements/itemMovementsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,14 +17,10 @@ export const store = configureStore({
     items: itemsReducer,
     item: itemReducer,
     orderItems: orderItemsReducer,
+    itemMovements: itemMovementsReducer,
   },
 });
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

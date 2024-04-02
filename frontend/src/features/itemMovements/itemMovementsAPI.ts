@@ -1,7 +1,7 @@
-import { FetchOrderItemsPayload, OrderItemsState } from './orderItemsSlice';
+import { FetchItemMovementsPayload, ItemMovementState } from './itemMovementsSlice';
 import { API_URL } from '../API';
 
-export async function fetchOrderItems({ itemId, page }: FetchOrderItemsPayload) {
+export async function fetchItemMovements({ itemId, page }: FetchItemMovementsPayload) {
   return fetch(`${API_URL}/items/${itemId}/movements.json?page=${page}`, {
     method: 'GET',
     headers: {
@@ -11,6 +11,6 @@ export async function fetchOrderItems({ itemId, page }: FetchOrderItemsPayload) 
     .then((res) => res.json())
     .catch((err) => {
       console.log('Error: ', err);
-      return {} as OrderItemsState;
+      return {} as ItemMovementState;
     });
 }

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { fetchOrderItems } from './orderItemAPI';
 import { rejectNullValuesDeep } from '../../utils/objects';
 import { OrderItemStructure } from './orderItemDTOs';
 import { Statuses } from '../API';
@@ -40,38 +39,12 @@ export interface FetchOrderItemsPayload {
   page: number;
   itemId: number;
 }
-export const fetchOrderItemsAsync = createAsyncThunk(
-  'items/fetchOrderItems',
-  async (payload: FetchOrderItemsPayload) => await fetchOrderItems(payload)
-);
 
 export const itemsSlice = createSlice({
   name: 'orderItems',
   initialState,
-  reducers: {
-    // addOrderItem: (state, action: OrderAction) => {
-    //   state.order = action.payload;
-    // },
-    // updateOrderItem: (state, action: OrderAction) => {
-    //   state.order = action.payload;
-    // },
-    // deleteOrderItem: (state, action: OrderAction) => {
-    //   state.order = action.payload;
-    // },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchOrderItemsAsync.pending, (state) => {
-        state.status = Statuses.Loading;
-      })
-      .addCase(fetchOrderItemsAsync.fulfilled, (state, action) => {
-        state.orderItems = rejectNullValuesDeep(action.payload);
-        state.status = Statuses.UpToDate;
-      })
-      .addCase(fetchOrderItemsAsync.rejected, (state) => {
-        state.status = Statuses.Error;
-      });
-  },
+  reducers: {},
+  extraReducers: (builder) => {},
 });
 
 export const {} = itemsSlice.actions;

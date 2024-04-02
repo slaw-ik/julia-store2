@@ -3,15 +3,19 @@ import { useAppSelector } from '../../app/hooks';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { useSearchParams } from 'react-router-dom';
-import { fetchOrderItemsAsync, selectOrderItems, selectStatus } from '../../features/orderItems/orderItemsSlice';
 import MegaTable from '../MegaTable/MegaTable';
+import {
+  fetchItemMovementsAsync,
+  selectItemMovements,
+  selectStatus,
+} from '../../features/itemMovements/itemMovementsSlice';
 
 interface ItemMovementsPageProps {
   id: string | undefined;
 }
 
 const ItemMovementsPage = ({ id }: ItemMovementsPageProps) => {
-  const orderItems = useAppSelector(selectOrderItems);
+  const itemMovements = useAppSelector(selectItemMovements);
   const status = useAppSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -33,7 +37,7 @@ const ItemMovementsPage = ({ id }: ItemMovementsPageProps) => {
   }, [searchParams]);
 
   useEffect(() => {
-    dispatch(fetchOrderItemsAsync({ itemId: parseInt(id || '0'), page }));
+    dispatch(fetchItemMovementsAsync({ itemId: parseInt(id || '0'), page }));
   }, [dispatch, page]);
 
   return (
@@ -42,9 +46,9 @@ const ItemMovementsPage = ({ id }: ItemMovementsPageProps) => {
         status={status}
         resourceName="Movements"
         resource="orderItems"
-        records={orderItems.orderItems}
+        records={itemMovements.orderItems}
         page={page}
-        total={orderItems.total}
+        total={itemMovements.total}
         onPageChanges={handleOnPageChanges}
         dataStructure={[
           {
