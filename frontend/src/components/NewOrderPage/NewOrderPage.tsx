@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-import './styles.scss';
+import React, { useEffect, useState } from 'react';
 
 import UserSearch from '../UserSearch/UserSearch';
 import ClientForm from '../ClientForm/ClientForm';
@@ -9,15 +7,21 @@ import ItemCard from './ItemCard';
 import { useAppSelector } from '../../app/hooks';
 import { selectItem } from '../../features/items/itemSlice';
 import { ClientStructure } from '../../features/clients/clientDTOs';
-import { OrderStructure, updateOrder } from '../../features/orders/orderSlice';
+import { OrderStructure, selectOrder, updateOrder, updateOrderItems } from '../../features/orders/orderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
+import { ItemStructure } from '../../features/items/itemDTOs';
+import TmpItemCard from './TmpItemCard';
+import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
+
+import './styles.scss';
 
 const NewOrderPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [tmpItem, setTmpItem] = useState<ItemStructure | null>(null);
 
   const dispatch = useDispatch<AppDispatch>();
-  const item = useAppSelector(selectItem);
+  const order = useAppSelector(selectOrder);
 
   const setOrdersUser = (client: ClientStructure) => {
     const ordersUser: OrderStructure = {
@@ -34,6 +38,12 @@ const NewOrderPage = () => {
     };
 
     dispatch(updateOrder(ordersUser));
+  };
+
+  const handleAdd = (item: OrderItemStructure) => {
+    const orderItems: OrderItemStructure[] = order.orderItems ? [item, ...order.orderItems] : [item];
+
+    dispatch(updateOrderItems(orderItems));
   };
 
   return (
@@ -72,11 +82,22 @@ const NewOrderPage = () => {
           <div className={`row ${activeTab !== 1 && 'visually-hidden'}`}>
             <div className="col-lg-12">
               <div className="row mb-3">
-                <ItemSearch />
+                <ItemSearch onItemSelect={setTmpItem} />
               </div>
 
               <div className="row">
-                <div className="col-lg-12">{item.name && <ItemCard item={item} />}</div>
+                <div className="col-lg-12">{tmpItem && <TmpItemCard item={tmpItem} onAddClick={handleAdd} />}</div>
+              </div>
+
+              <hr />
+
+              <div className="row">
+                {order.orderItems &&
+                  order.orderItems.map((item: OrderItemStructure) => (
+                    <div className="col-lg-12" key={item.id}>
+                      <ItemCard item={item as ItemStructure} />
+                    </div>
+                  ))}
               </div>
 
               <div className="row">

@@ -2,6 +2,7 @@ import React from 'react';
 import OrderItem from './OrderItem';
 import { prettifyDate } from '../../utils/dateTime';
 import { OrderStructure } from '../../features/orders/orderSlice';
+import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
 
 type OrderProps = {
   order: OrderStructure;
@@ -52,9 +53,10 @@ const Order = ({ order }: OrderProps) => {
               </div>
               <table className="table table-borderless">
                 <tbody>
-                  {order.orderItems.map((orderItem: any) => (
-                    <OrderItem orderItem={orderItem} key={orderItem.id} />
-                  ))}
+                  {order.orderItems &&
+                    order.orderItems.map((orderItem: OrderItemStructure) => (
+                      <OrderItem orderItem={orderItem} key={orderItem.id} />
+                    ))}
                 </tbody>
                 <tfoot>
                   <tr className="fw-bold">

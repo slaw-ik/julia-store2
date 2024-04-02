@@ -1,11 +1,4 @@
-export interface OrderItemStructure {
-  id?: number;
-  count?: number;
-  price?: number;
-  total?: number;
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { OrderItemStructure } from '../orderItems/orderItemDTOs';
 
 export interface ItemStructure {
   id?: number;

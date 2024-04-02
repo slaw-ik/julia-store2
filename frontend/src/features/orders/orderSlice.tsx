@@ -2,14 +2,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchOrder } from './orderAPI';
 import { ClientStructure } from '../clients/clientDTOs';
-import { ItemStructure } from '../items/itemDTOs';
 import { Statuses } from '../API';
+import { OrderItemStructure } from '../orderItems/orderItemDTOs';
 
 export interface OrderStructure {
   id?: number;
   status?: string;
   total?: string;
-  orderItems?: any;
+  orderItems?: OrderItemStructure[];
   clientId?: number;
   client?: ClientStructure;
   country?: string;
@@ -38,7 +38,7 @@ interface OrderAction {
 
 interface OrderItemsAction {
   type: string;
-  payload: ItemStructure[];
+  payload: OrderItemStructure[];
 }
 
 const initialState: OrdersState = {

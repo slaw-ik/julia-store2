@@ -5,9 +5,15 @@ import './ItemCard.scss';
 
 interface ItemCardProps {
   item: ItemStructure;
+  onAddClick: (item: ItemStructure) => void;
 }
 
-const ItemCard = ({ item }: ItemCardProps) => {
+const TmpItemCard = ({ item, onAddClick }: ItemCardProps) => {
+  const handleAdd = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onAddClick(item);
+  };
+
   return (
     <div className="card border shadow-none">
       <div className="card-body">
@@ -28,20 +34,20 @@ const ItemCard = ({ item }: ItemCardProps) => {
               </p>
             </div>
           </div>
-          {/*<div className="flex-shrink-0 ms-2">*/}
-          {/*  <ul className="list-inline mb-0 font-size-16">*/}
-          {/*    <li className="list-inline-item">*/}
-          {/*      <a href="#" className="text-muted px-1 fs-3">*/}
-          {/*        <i className="bi bi-plus green-on-hover" />*/}
-          {/*      </a>*/}
-          {/*    </li>*/}
-          {/*    <li className="list-inline-item">*/}
-          {/*      <a href="#" className="text-muted px-1 fs-3">*/}
-          {/*        <i className="bi bi-x red-on-hover" />*/}
-          {/*      </a>*/}
-          {/*    </li>*/}
-          {/*  </ul>*/}
-          {/*</div>*/}
+          <div className="flex-shrink-0 ms-2">
+            <ul className="list-inline mb-0 font-size-16">
+              <li className="list-inline-item">
+                <a href="#" className="text-muted px-1 fs-3" onClick={handleAdd}>
+                  <i className="bi bi-plus green-on-hover" />
+                </a>
+              </li>
+              <li className="list-inline-item">
+                <a href="#" className="text-muted px-1 fs-3">
+                  <i className="bi bi-x red-on-hover" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div>
@@ -84,4 +90,4 @@ const ItemCard = ({ item }: ItemCardProps) => {
   );
 };
 
-export default ItemCard;
+export default TmpItemCard;

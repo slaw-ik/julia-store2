@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { clearItems, searchItemsAsync, selectItems, selectStatus } from '../../features/items/itemsSlice';
 import { useAppSelector } from '../../app/hooks';
-import { setItem } from '../../features/items/itemSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ItemStructure } from '../../features/items/itemDTOs';
 import { Statuses } from '../../features/API';
 
-const ItemSearch = () => {
+interface ItemSearchProps {
+  onItemSelect?: (item: ItemStructure) => void;
+}
+const ItemSearch = ({ onItemSelect }: ItemSearchProps) => {
   const items = useAppSelector(selectItems);
   const status = useAppSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +45,7 @@ const ItemSearch = () => {
   };
 
   const handleSearchResultClick = (item: ItemStructure) => {
-    dispatch(setItem(item));
+    if (onItemSelect) onItemSelect(item);
   };
 
   useEffect(() => {
