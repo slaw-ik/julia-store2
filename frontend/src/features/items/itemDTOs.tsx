@@ -6,7 +6,7 @@ export interface ItemStructure {
   description?: string;
   count?: number;
   price?: number;
-  orderItems: OrderItemStructure[];
+  orderItems?: OrderItemStructure[];
 }
 
 export interface ItemActiveRecordStructure {

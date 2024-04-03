@@ -6,12 +6,18 @@ import './ItemCard.scss';
 interface ItemCardProps {
   item: ItemStructure;
   onAddClick: (item: ItemStructure) => void;
+  onCancelClick: () => void;
 }
 
-const TmpItemCard = ({ item, onAddClick }: ItemCardProps) => {
+const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
   const handleAdd = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     onAddClick(item);
+  };
+
+  const onCancel = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onCancelClick();
   };
 
   return (
@@ -38,12 +44,12 @@ const TmpItemCard = ({ item, onAddClick }: ItemCardProps) => {
             <ul className="list-inline mb-0 font-size-16">
               <li className="list-inline-item">
                 <a href="#" className="text-muted px-1 fs-3" onClick={handleAdd}>
-                  <i className="bi bi-plus green-on-hover" />
+                  <i className="bi bi-plus green-bg-on-hover" />
                 </a>
               </li>
               <li className="list-inline-item">
-                <a href="#" className="text-muted px-1 fs-3">
-                  <i className="bi bi-x red-on-hover" />
+                <a href="#" className="text-muted px-1 fs-3" onClick={onCancel}>
+                  <i className="bi bi-x red-bg-on-hover" />
                 </a>
               </li>
             </ul>

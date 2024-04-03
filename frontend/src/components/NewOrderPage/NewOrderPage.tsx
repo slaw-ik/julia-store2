@@ -44,6 +44,21 @@ const NewOrderPage = () => {
     const orderItems: OrderItemStructure[] = order.orderItems ? [item, ...order.orderItems] : [item];
 
     dispatch(updateOrderItems(orderItems));
+    setTmpItem(null);
+  };
+
+  const handleCancel = () => {
+    setTmpItem(null);
+  };
+
+  const handleDelete = (item: OrderItemStructure) => {
+    let orderItems: OrderItemStructure[] = [];
+
+    if (order.orderItems) {
+      orderItems = order.orderItems.filter((orderItem) => orderItem.id !== item.id);
+    }
+
+    dispatch(updateOrderItems(orderItems));
   };
 
   return (
@@ -86,7 +101,9 @@ const NewOrderPage = () => {
               </div>
 
               <div className="row">
-                <div className="col-lg-12">{tmpItem && <TmpItemCard item={tmpItem} onAddClick={handleAdd} />}</div>
+                <div className="col-lg-12">
+                  {tmpItem && <TmpItemCard item={tmpItem} onAddClick={handleAdd} onCancelClick={handleCancel} />}
+                </div>
               </div>
 
               <hr />
@@ -95,7 +112,7 @@ const NewOrderPage = () => {
                 {order.orderItems &&
                   order.orderItems.map((item: OrderItemStructure) => (
                     <div className="col-lg-12" key={item.id}>
-                      <ItemCard item={item as ItemStructure} />
+                      <ItemCard item={item as ItemStructure} onDeleteClick={handleDelete} />
                     </div>
                   ))}
               </div>
@@ -103,11 +120,7 @@ const NewOrderPage = () => {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="row my-4">
-                    <div className="col-sm-6">
-                      <a href="ecommerce-products.html" className="btn btn-link text-muted">
-                        <i className="mdi mdi-arrow-left me-1"></i> Continue Shopping{' '}
-                      </a>
-                    </div>
+                    <div className="col-sm-6"></div>
                     <div className="col-sm-6">
                       <div className="text-sm-end mt-2 mt-sm-0">
                         <a href="ecommerce-checkout.html" className="btn btn-success">

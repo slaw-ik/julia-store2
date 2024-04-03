@@ -28,15 +28,16 @@ const ItemMovements = ({ item }: ItemProps) => {
               </tr>
             </thead>
             <tbody>
-              {item.orderItems.map((orderItem, index) => (
-                <tr key={index}>
-                  <td>{orderItem.price}</td>
-                  <td>{orderItem.count}</td>
-                  <td>{orderItem.total}</td>
-                  <td>{prettifyDate(orderItem.createdAt)}</td>
-                  <td>{prettifyDate(orderItem.updatedAt)}</td>
-                </tr>
-              ))}
+              {item.orderItems &&
+                item.orderItems.map((orderItem, index) => (
+                  <tr key={index}>
+                    <td>{orderItem.price}</td>
+                    <td>{orderItem.count}</td>
+                    <td>{orderItem.total}</td>
+                    <td>{prettifyDate(orderItem.createdAt)}</td>
+                    <td>{prettifyDate(orderItem.updatedAt)}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
