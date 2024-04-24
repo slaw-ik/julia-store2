@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ItemStructure } from '../../features/items/itemDTOs';
 
 import './ItemCard.scss';
@@ -10,9 +10,14 @@ interface ItemCardProps {
 }
 
 const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
+  const [tmpItem, setTmpItem] = useState<ItemStructure>({ ...item, count: 1 });
+
+  const setCount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTmpItem({ ...tmpItem, count: parseInt(e.target.value) });
+  };
   const handleAdd = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    onAddClick(item);
+    onAddClick(tmpItem);
   };
 
   const onCancel = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -67,26 +72,22 @@ const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
             <div className="col-md-5">
               <div className="mt-3">
                 <p className="text-muted mb-2">Quantity</p>
-                <div className="d-inline-flex">
-                  <select className="form-select form-select-sm w-xl">
-                    <option value="1" selected>
-                      1
-                    </option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                  </select>
+                <div className="d-inline-flex col-md-5">
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="count"
+                    defaultValue={1}
+                    min={1}
+                    onChange={setCount}
+                  />
                 </div>
               </div>
             </div>
             <div className="col-md-3">
               <div className="mt-3">
                 <p className="text-muted mb-2">Total</p>
-                <h5>$900</h5>
+                <h5>${(tmpItem.price || 0) * (tmpItem.count || 1)}</h5>
               </div>
             </div>
           </div>

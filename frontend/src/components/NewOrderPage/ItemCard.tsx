@@ -58,26 +58,15 @@ const ItemCard = ({ item, onDeleteClick }: ItemCardProps) => {
             <div className="col-md-5">
               <div className="mt-3">
                 <p className="text-muted mb-2">Quantity</p>
-                <div className="d-inline-flex">
-                  <select className="form-select form-select-sm w-xl">
-                    <option value="1" selected>
-                      1
-                    </option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                  </select>
+                <div className="d-inline-flex col-md-5">
+                  <input type="number" className="form-control" value={item.count} disabled={true} />
                 </div>
               </div>
             </div>
             <div className="col-md-3">
               <div className="mt-3">
                 <p className="text-muted mb-2">Total</p>
-                <h5>$900</h5>
+                <h5>${(item.price || 0) * (item.count || 1)}</h5>
               </div>
             </div>
           </div>
