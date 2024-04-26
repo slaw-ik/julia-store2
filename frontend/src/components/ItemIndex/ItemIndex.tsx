@@ -57,8 +57,8 @@ const ItemIndex = () => {
             name: 'Description',
           },
           {
-            key: 'count',
-            name: 'Count',
+            key: 'stockCount',
+            name: 'Stock Count',
           },
           {
             key: 'price',

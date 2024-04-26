@@ -6,13 +6,21 @@ import './ItemCard.scss';
 interface ItemCardProps {
   item: ItemStructure;
   onDeleteClick?: (item: ItemStructure) => void;
+  onEditClick?: (item: ItemStructure) => void;
 }
 
-const ItemCard = ({ item, onDeleteClick }: ItemCardProps) => {
+const ItemCard = ({ item, onDeleteClick, onEditClick }: ItemCardProps) => {
   const handleDelete = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (onDeleteClick) {
       onDeleteClick(item);
+    }
+  };
+
+  const handleEdit = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (onEditClick) {
+      onEditClick(item);
     }
   };
 
@@ -38,6 +46,11 @@ const ItemCard = ({ item, onDeleteClick }: ItemCardProps) => {
           </div>
           <div className="flex-shrink-0 ms-2">
             <ul className="list-inline mb-0 font-size-16">
+              <li className="list-inline-item">
+                <a href="#" className="text-muted px-1 fs-3" onClick={handleEdit}>
+                  <i className="bi bi-pencil blue-on-hover" />
+                </a>
+              </li>
               <li className="list-inline-item">
                 <a href="#" className="text-muted px-1 fs-3" onClick={handleDelete}>
                   <i className="bi bi-trash3 red-on-hover" />

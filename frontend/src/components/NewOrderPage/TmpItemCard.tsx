@@ -10,7 +10,7 @@ interface ItemCardProps {
 }
 
 const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
-  const [tmpItem, setTmpItem] = useState<ItemStructure>({ ...item, count: 1 });
+  const [tmpItem, setTmpItem] = useState<ItemStructure>(item);
 
   const setCount = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTmpItem({ ...tmpItem, count: parseInt(e.target.value) });
@@ -36,12 +36,12 @@ const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
             <div>
               <h5 className="text-truncate font-size-18">
                 <a href="#" className="text-dark">
-                  {item.name}
+                  {tmpItem.name}
                 </a>
               </h5>
 
               <p className="mb-0 mt-1">
-                Description : <span>{item.description}</span>
+                Description : <span>{tmpItem.description}</span>
               </p>
             </div>
           </div>
@@ -66,7 +66,7 @@ const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
             <div className="col-md-4">
               <div className="mt-3">
                 <p className="text-muted mb-2">Price</p>
-                <h5 className="mb-0 mt-2">${item.price}</h5>
+                <h5 className="mb-0 mt-2">${tmpItem.price}</h5>
               </div>
             </div>
             <div className="col-md-5">
@@ -77,9 +77,9 @@ const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
                     type="number"
                     className="form-control"
                     id="count"
-                    defaultValue={1}
                     min={1}
                     onChange={setCount}
+                    value={tmpItem.count || 1}
                   />
                 </div>
               </div>

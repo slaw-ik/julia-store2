@@ -61,6 +61,12 @@ const NewOrderPage = () => {
     dispatch(updateOrderItems(orderItems));
   };
 
+  const handleEdit = (item: OrderItemStructure) => {
+    setTmpItem(item as ItemStructure);
+
+    handleDelete(item);
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -112,7 +118,7 @@ const NewOrderPage = () => {
                 {order.orderItems &&
                   order.orderItems.map((item: OrderItemStructure) => (
                     <div className="col-lg-12" key={item.id}>
-                      <ItemCard item={item as ItemStructure} onDeleteClick={handleDelete} />
+                      <ItemCard item={item as ItemStructure} onDeleteClick={handleDelete} onEditClick={handleEdit} />
                     </div>
                   ))}
               </div>

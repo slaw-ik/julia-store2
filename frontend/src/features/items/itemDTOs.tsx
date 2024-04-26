@@ -4,6 +4,7 @@ export interface ItemStructure {
   id?: number;
   name?: string;
   description?: string;
+  stockCount?: number;
   count?: number;
   price?: number;
   orderItems?: OrderItemStructure[];

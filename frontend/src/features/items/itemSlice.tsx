@@ -30,7 +30,7 @@ const initialState: ItemState = {
     id: 0,
     name: '',
     description: '',
-    count: 0,
+    stockCount: 0,
     price: 0,
     orderItems: [],
   },

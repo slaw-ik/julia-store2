@@ -11,9 +11,9 @@
 ActiveRecord::Base.transaction do
   user = User.create!(first_name: 'John', last_name: 'Doe')
 
-  item1 = Item.create!(name: 'Item 1', price: 10.0, count: 10)
-  item2 = Item.create!(name: 'Item 2', price: 20.0, count: 20)
-  item3 = Item.create!(name: 'Item 3', price: 30.0, count: 30)
+  item1 = Item.create!(name: 'Item 1', price: 10.0, stock_count: 10)
+  item2 = Item.create!(name: 'Item 2', price: 20.0, stock_count: 20)
+  item3 = Item.create!(name: 'Item 3', price: 30.0, stock_count: 30)
 
   address1 = Address.create!(country: 'UA', street: 'Street 1', city: 'City 1', region: 'Region 1', building: 'Building 1')
   address2 = Address.create!(country: 'UA', street: 'Street 2', city: 'City 2', region: 'Region 2', building: 'Building 2')
