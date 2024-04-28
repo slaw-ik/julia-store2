@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ItemStructure } from '../../features/items/itemDTOs';
 
 import './ItemCard.scss';
@@ -12,8 +12,8 @@ interface ItemCardProps {
 const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
   const [tmpItem, setTmpItem] = useState<ItemStructure>(item);
 
-  const setCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTmpItem({ ...tmpItem, count: parseInt(e.target.value) });
+  const setCount = (count: string) => {
+    setTmpItem({ ...tmpItem, count: parseInt(count) });
   };
   const handleAdd = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -24,6 +24,10 @@ const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
     e.preventDefault();
     onCancelClick();
   };
+
+  useEffect(() => {
+    if (!tmpItem.count) setCount('1');
+  }, []);
 
   return (
     <div className="card border shadow-none">
@@ -78,7 +82,7 @@ const TmpItemCard = ({ item, onAddClick, onCancelClick }: ItemCardProps) => {
                     className="form-control"
                     id="count"
                     min={1}
-                    onChange={setCount}
+                    onChange={(e) => setCount(e.target.value)}
                     value={tmpItem.count || 1}
                   />
                 </div>

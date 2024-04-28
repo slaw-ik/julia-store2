@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { LegacyRef, useRef, useState } from 'react';
 
 import UserSearch from '../UserSearch/UserSearch';
 import ClientForm from '../ClientForm/ClientForm';
 import ItemSearch from '../ItemSearch/ItemSearch';
 import ItemCard from './ItemCard';
 import { useAppSelector } from '../../app/hooks';
-import { selectItem } from '../../features/items/itemSlice';
 import { ClientStructure } from '../../features/clients/clientDTOs';
 import { OrderStructure, selectOrder, updateOrder, updateOrderItems } from '../../features/orders/orderSlice';
 import { useDispatch } from 'react-redux';
@@ -17,6 +16,7 @@ import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
 import './styles.scss';
 
 const NewOrderPage = () => {
+  const ref: LegacyRef<HTMLDivElement> = useRef(null);
   const [activeTab, setActiveTab] = useState(0);
   const [tmpItem, setTmpItem] = useState<ItemStructure | null>(null);
 
@@ -62,9 +62,31 @@ const NewOrderPage = () => {
   };
 
   const handleEdit = (item: OrderItemStructure) => {
-    setTmpItem(item as ItemStructure);
+    let editableItem: OrderItemStructure = item;
 
-    handleDelete(item);
+    order.orderItems?.find((orderItem) => {
+      if (orderItem.id === item.id) {
+        editableItem = orderItem;
+      }
+    });
+
+    setTmpItem(editableItem as ItemStructure);
+
+    handleDelete(editableItem);
+
+    ref.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  };
+
+  const totalPrice = () => {
+    if (!order.orderItems) {
+      return 0;
+    }
+
+    return order.orderItems.reduce(function (acc, item) {
+      return acc + (item.count || 0) * (item.price || 0);
+    }, 0);
   };
 
   return (
@@ -102,8 +124,8 @@ const NewOrderPage = () => {
 
           <div className={`row ${activeTab !== 1 && 'visually-hidden'}`}>
             <div className="col-lg-12">
-              <div className="row mb-3">
-                <ItemSearch onItemSelect={setTmpItem} />
+              <div className="row mb-3" ref={ref}>
+                <ItemSearch onItemSelect={handleEdit} />
               </div>
 
               <div className="row">
@@ -129,8 +151,8 @@ const NewOrderPage = () => {
                     <div className="col-sm-6"></div>
                     <div className="col-sm-6">
                       <div className="text-sm-end mt-2 mt-sm-0">
-                        <a href="ecommerce-checkout.html" className="btn btn-success">
-                          <i className="mdi mdi-cart-outline me-1"></i> Checkout{' '}
+                        <a href="#" className="btn btn-success">
+                          Create
                         </a>
                       </div>
                     </div>
@@ -153,26 +175,26 @@ const NewOrderPage = () => {
                 <div className="table-responsive">
                   <table className="table mb-0">
                     <tbody>
-                      <tr>
-                        <td>Sub Total :</td>
-                        <td className="text-end">$ 780</td>
-                      </tr>
-                      <tr>
-                        <td>Discount :</td>
-                        <td className="text-end">- $ 78</td>
-                      </tr>
-                      <tr>
-                        <td>Shipping Charge :</td>
-                        <td className="text-end">$ 25</td>
-                      </tr>
-                      <tr>
-                        <td>Estimated Tax :</td>
-                        <td className="text-end">$ 18.20</td>
-                      </tr>
+                      {/*<tr>*/}
+                      {/*  <td>Sub Total :</td>*/}
+                      {/*  <td className="text-end">$ 780</td>*/}
+                      {/*</tr>*/}
+                      {/*<tr>*/}
+                      {/*  <td>Discount :</td>*/}
+                      {/*  <td className="text-end">- $ 78</td>*/}
+                      {/*</tr>*/}
+                      {/*<tr>*/}
+                      {/*  <td>Shipping Charge :</td>*/}
+                      {/*  <td className="text-end">$ 25</td>*/}
+                      {/*</tr>*/}
+                      {/*<tr>*/}
+                      {/*  <td>Estimated Tax :</td>*/}
+                      {/*  <td className="text-end">$ 18.20</td>*/}
+                      {/*</tr>*/}
                       <tr className="bg-light">
                         <th>Total :</th>
                         <td className="text-end">
-                          <span className="fw-bold">$ 745.2</span>
+                          <span className="fw-bold">$ {totalPrice()}</span>
                         </td>
                       </tr>
                     </tbody>
