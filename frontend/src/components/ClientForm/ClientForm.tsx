@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectClient, updateClientAttrs, updateClientsAddressAttrs } from '../../features/clients/clientSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
+import { ClientStructure } from '../../features/clients/clientDTOs';
 
-const ClientForm = () => {
+interface ClientFormProps {
+  afterUpdateCallback?: (client: ClientStructure) => void;
+  disableNameFields?: boolean;
+}
+
+const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps) => {
   const client = useAppSelector(selectClient);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -17,6 +23,10 @@ const ClientForm = () => {
     const { name, value } = e.target;
     dispatch(updateClientsAddressAttrs({ fieldName: name, fieldValue: value }));
   };
+
+  useEffect(() => {
+    if (afterUpdateCallback) afterUpdateCallback(client);
+  }, [client]);
 
   return (
     <div className="col-lg-12">
@@ -34,6 +44,7 @@ const ClientForm = () => {
                   name="firstName"
                   value={client.firstName}
                   onChange={handleInputChange}
+                  disabled={disableNameFields}
                 />
               </div>
             </div>
@@ -46,6 +57,7 @@ const ClientForm = () => {
                   name="lastName"
                   value={client.lastName}
                   onChange={handleInputChange}
+                  disabled={disableNameFields}
                 />
               </div>
             </div>
@@ -60,6 +72,7 @@ const ClientForm = () => {
                   name="email"
                   value={client.email}
                   onChange={handleInputChange}
+                  disabled={disableNameFields}
                 />
               </div>
             </div>

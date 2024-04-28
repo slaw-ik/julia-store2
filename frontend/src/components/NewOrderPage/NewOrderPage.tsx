@@ -1,4 +1,4 @@
-import React, { LegacyRef, useRef, useState } from 'react';
+import React, { LegacyRef, useEffect, useRef, useState } from 'react';
 
 import UserSearch from '../UserSearch/UserSearch';
 import ClientForm from '../ClientForm/ClientForm';
@@ -19,6 +19,7 @@ const NewOrderPage = () => {
   const ref: LegacyRef<HTMLDivElement> = useRef(null);
   const [activeTab, setActiveTab] = useState(0);
   const [tmpItem, setTmpItem] = useState<ItemStructure | null>(null);
+  const [disabledCreateButton, setDisabledCreateButton] = useState(true);
 
   const dispatch = useDispatch<AppDispatch>();
   const order = useAppSelector(selectOrder);
@@ -89,6 +90,10 @@ const NewOrderPage = () => {
     }, 0);
   };
 
+  useEffect(() => {
+    setDisabledCreateButton(!(order.clientId && order.clientId > 0 && order.orderItems && order.orderItems.length > 0));
+  }, [order, order.clientId, order.orderItems]);
+
   return (
     <div className="container">
       <div className="row">
@@ -117,7 +122,7 @@ const NewOrderPage = () => {
               </div>
 
               <div className="row">
-                <ClientForm />
+                <ClientForm afterUpdateCallback={setOrdersUser} disableNameFields={true} />
               </div>
             </div>
           </div>
@@ -151,9 +156,13 @@ const NewOrderPage = () => {
                     <div className="col-sm-6"></div>
                     <div className="col-sm-6">
                       <div className="text-sm-end mt-2 mt-sm-0">
-                        <a href="#" className="btn btn-success">
+                        <button
+                          className="btn btn-success"
+                          disabled={disabledCreateButton}
+                          onClick={() => console.log('cccc')}
+                        >
                           Create
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
