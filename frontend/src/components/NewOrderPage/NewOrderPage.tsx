@@ -14,6 +14,8 @@ import TmpItemCard from './TmpItemCard';
 import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
 
 import './styles.scss';
+import { selectClient } from '../../features/clients/clientSlice';
+import { fullAddress } from '../../features/clients/helpers';
 
 const NewOrderPage = () => {
   const ref: LegacyRef<HTMLDivElement> = useRef(null);
@@ -23,6 +25,7 @@ const NewOrderPage = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const order = useAppSelector(selectOrder);
+  const client = useAppSelector(selectClient);
 
   const setOrdersUser = (client: ClientStructure) => {
     const ordersUser: OrderStructure = {
@@ -208,6 +211,35 @@ const NewOrderPage = () => {
                       </tr>
                     </tbody>
                   </table>
+                </div>
+
+                <div
+                  className="table-responsive"
+                  style={{
+                    padding: '0.75rem',
+                  }}
+                >
+                  <h3 className="h6">Address :</h3>
+                  <div className="row">
+                    <div className="col-sm-12">
+                      <i className="bi bi-instagram mr-5"></i>
+                      <strong>{order.client?.nickname}</strong>
+                    </div>
+                    <div className="col-sm-12">
+                      <i className="bi bi-person-fill mr-5" />
+                      <span>
+                        {order.client?.firstName || client.firstName} {order.client?.lastName || client.lastName}
+                      </span>
+                    </div>
+                    <div className="col-sm-12">
+                      <i className="bi bi-house-door-fill mr-5"></i>
+                      {fullAddress(order)}
+                    </div>
+                    <div className="col-sm-12">
+                      <i className="bi bi-telephone-fill mr-5"></i>
+                      {order.phone}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
