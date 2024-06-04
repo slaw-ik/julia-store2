@@ -6,30 +6,23 @@ type OrderItemProps = {
 
 const OrderItem = ({ orderItem }: OrderItemProps) => {
   return (
-    <tr>
-      <td>
-        <div className="d-flex mb-2">
-          <div className="flex-shrink-0">
-            <img
-              src="https://www.bootdey.com/image/280x280/87CEFA/000000"
-              alt=""
-              width="35"
-              className="img-fluid"
-            ></img>
-          </div>
-          <div className="flex-lg-grow-1 ms-3">
-            <h6 className="small mb-0">
-              <a href="#" className="text-reset">
-                {orderItem.item.name}
-              </a>
-            </h6>
-          </div>
+    <div className="row py-2 border order-item">
+      <div className="col-lg-2 order-item-image">
+        <img src="https://www.bootdey.com/image/200x200/008B8B/000000" className="rounded" />
+      </div>
+      <div className="col-lg-8 d-flex align-items-center">
+        <div>
+          <h6 className="mt-0">{orderItem.item?.name}</h6>
+          <p className="my-0">{orderItem.item?.description}</p>
         </div>
-      </td>
-      <td>€ {orderItem.item.price}</td>
-      <td>{orderItem.count}</td>
-      <td className="text-end">€ {orderItem.total}</td>
-    </tr>
+      </div>
+      <div className="col-lg-2 d-flex align-items-center justify-content-end">
+        <div>
+          <h6 className="mt-0 d-flex  justify-content-end">€ {orderItem.item?.price}</h6>
+          <p className="my-0 d-flex  justify-content-end">Qt: {orderItem.count}</p>
+        </div>
+      </div>
+    </div>
   );
 };
 

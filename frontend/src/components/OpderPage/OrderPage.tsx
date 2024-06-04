@@ -7,6 +7,8 @@ import { AppDispatch } from '../../app/store';
 import Order from './Order';
 import { Statuses } from '../../features/API';
 
+import './styles.scss';
+
 interface OrderPageProps {
   id: string;
 }
