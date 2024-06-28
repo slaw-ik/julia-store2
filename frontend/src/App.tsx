@@ -2,7 +2,8 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Order from './pages/Order';
+import OrderShow from './pages/OrderShow';
+import OrderEdit from './pages/OrderEdit';
 import OrderIndex from './components/OrderIndex/OrderIndex';
 import Navbar from './components/Navbar/Navbar';
 import Client from './pages/Client';
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/orders/:id',
-    element: <Order />,
+    element: <OrderShow />,
+  },
+  {
+    path: '/orders/:id/edit',
+    element: <OrderEdit />,
   },
   {
     path: '/orders',

@@ -1,0 +1,59 @@
+$green-btn: #4caf50;
+$red-btn: #f44336;
+$blue-btn: #2196f3;
+
+i {
+  &.green-on-hover {
+    &:hover {
+      color: $green-btn;
+      cursor: pointer;
+    }
+  }
+
+  &.green-bg-on-hover {
+    &:hover {
+      &::before {
+        background-color: $green-btn;
+        cursor: pointer;
+        border-radius: 50%;
+        color: white;
+      }
+    }
+  }
+
+  &.red-on-hover {
+    &:hover {
+      color: $red-btn;
+      cursor: pointer;
+    }
+  }
+
+  &.red-bg-on-hover {
+    &:hover {
+      &::before {
+        background-color: $red-btn;
+        cursor: pointer;
+        border-radius: 50%;
+        color: white;
+      }
+    }
+  }
+
+  &.blue-on-hover {
+    &:hover {
+      color: $blue-btn;
+      cursor: pointer;
+    }
+  }
+
+  &.blue-bg-on-hover {
+    &:hover {
+      &::before {
+        background-color: $blue-btn;
+        cursor: pointer;
+        border-radius: 50%;
+        color: white;
+      }
+    }
+  }
+}
