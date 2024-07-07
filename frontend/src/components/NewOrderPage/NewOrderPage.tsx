@@ -6,7 +6,13 @@ import ItemSearch from '../ItemSearch/ItemSearch';
 import ItemCard from './ItemCard';
 import { useAppSelector } from '../../app/hooks';
 import { ClientStructure } from '../../features/clients/clientDTOs';
-import { OrderStructure, selectOrder, updateOrder, updateOrderItems } from '../../features/orders/orderSlice';
+import {
+  createOrderAsync,
+  OrderStructure,
+  selectOrder,
+  updateOrder,
+  updateOrderItems,
+} from '../../features/orders/orderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ItemStructure } from '../../features/items/itemDTOs';
@@ -16,6 +22,7 @@ import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
 import './styles.scss';
 import { selectClient } from '../../features/clients/clientSlice';
 import { fullAddress } from '../../features/clients/helpers';
+import { useNavigate } from 'react-router-dom';
 
 const NewOrderPage = () => {
   const ref: LegacyRef<HTMLDivElement> = useRef(null);
@@ -24,6 +31,7 @@ const NewOrderPage = () => {
   const [disabledCreateButton, setDisabledCreateButton] = useState(true);
 
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const order = useAppSelector(selectOrder);
   const client = useAppSelector(selectClient);
 
@@ -81,6 +89,14 @@ const NewOrderPage = () => {
     ref.current?.scrollIntoView({
       behavior: 'smooth',
     });
+  };
+
+  const handleSubmit = () => {
+    if (!order.id) {
+      dispatch(createOrderAsync(order)) //.then(() => navigate('/orders'));
+    } else {
+      // dispatch(updateItemAsync(order));
+    }
   };
 
   const totalPrice = () => {
@@ -159,11 +175,7 @@ const NewOrderPage = () => {
                     <div className="col-sm-6"></div>
                     <div className="col-sm-6">
                       <div className="text-sm-end mt-2 mt-sm-0">
-                        <button
-                          className="btn btn-success"
-                          disabled={disabledCreateButton}
-                          onClick={() => console.log('cccc')}
-                        >
+                        <button className="btn btn-success" disabled={disabledCreateButton} onClick={handleSubmit}>
                           Create
                         </button>
                       </div>

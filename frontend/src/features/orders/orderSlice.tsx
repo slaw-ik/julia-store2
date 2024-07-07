@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { fetchOrder } from './orderAPI';
+import { createOrder, fetchOrder } from './orderAPI';
 import { ClientStructure } from '../clients/clientDTOs';
 import { Statuses } from '../API';
 import { OrderItemStructure } from '../orderItems/orderItemDTOs';
@@ -56,6 +56,11 @@ export const fetchOrderAsync = createAsyncThunk(
   async (payload: string) => await fetchOrder(payload)
 );
 
+export const createOrderAsync = createAsyncThunk(
+  'orders/createOrder',
+  async (payload: OrderStructure) => await createOrder(payload)
+);
+
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
@@ -80,6 +85,16 @@ export const orderSlice = createSlice({
         state.status = Statuses.UpToDate;
       })
       .addCase(fetchOrderAsync.rejected, (state) => {
+        state.status = Statuses.Error;
+      })
+      .addCase(createOrderAsync.pending, (state) => {
+        state.status = Statuses.Loading;
+      })
+      .addCase(createOrderAsync.fulfilled, (state, action) => {
+        state.order = action.payload;
+        state.status = Statuses.UpToDate;
+      })
+      .addCase(createOrderAsync.rejected, (state) => {
         state.status = Statuses.Error;
       });
   },

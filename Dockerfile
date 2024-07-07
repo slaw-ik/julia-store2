@@ -1,4 +1,4 @@
-FROM ruby:3.2.0-alpine
+FROM ruby:3.3.2-alpine
 
 RUN apk add --update build-base bash bash-completion libffi-dev tzdata postgresql-client postgresql-dev nodejs npm yarn
 
@@ -7,6 +7,8 @@ WORKDIR /app
 COPY Gemfile* ./
 
 RUN gem install bundler
+
+RUN bundle lock --add-platform x86_64-linux
 
 RUN bundle install
 

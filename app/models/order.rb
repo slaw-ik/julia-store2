@@ -22,11 +22,14 @@
 #  updated_at  :datetime         not null
 #
 class Order < ApplicationRecord
-  enum state: {
+
+  ORDER_STATES = {
     pending: 'pending',
     delivered: 'delivered',
     canceled: 'canceled',
-  }
+  }.freeze
+
+  enum state: ORDER_STATES
 
   belongs_to :user
   belongs_to :supplier, optional: true
@@ -34,6 +37,7 @@ class Order < ApplicationRecord
 
   has_many :order_items
   has_many :items, through: :order_items
+  has_many :order_histories
 
   def update_total(order_item = nil)
     total = 0

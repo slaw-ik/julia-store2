@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: yulia_store_development
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD:
-      POSTGRES_HOST_AUTH_METHOD: trust 
+      POSTGRES_HOST_AUTH_METHOD: trust
       DB_PORT: 5433
     ports:
       - "5433:5432"
@@ -21,13 +21,13 @@ services:
       DB_HOST: db
       DB_NAME: yulia_store_development
       DB_USERNAME: postgres
-      DB_PASSWORD: 
+      DB_PASSWORD:
     ports:
       - "3000:3000"
     depends_on:
       - db
-    # volumes:
-      # - .:/app
+    volumes:
+       - .:/app
     develop:
       watch:
         - path: ./Gemfile.lock
@@ -55,7 +55,7 @@ services:
           action: sync
 volumes:
   postgres_data: {}
-  
+
 networks:
   default:
     name: myapp_default
