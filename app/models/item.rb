@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: items
@@ -11,8 +13,8 @@
 #  updated_at  :datetime         not null
 #
 class Item < ApplicationRecord
-  has_many :order_items
-  has_many :orders, through: :order_items
+  has_many :order_items, dependent: :destroy
+  has_many :orders, through: :order_items, dependent: :destroy
 
   def self.search(search)
     if search.present?

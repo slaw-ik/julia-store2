@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -9,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 class User < ApplicationRecord
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: suppliers
@@ -11,12 +13,10 @@
 #  updated_at :datetime         not null
 #
 class Supplier < ApplicationRecord
-  belongs_to :address, required: true
+  belongs_to :address, optional: false
 
   validates :name, presence: true
   validates :address, presence: true
 
-  def full_address
-    address.full_address
-  end
+  delegate :full_address, to: :address
 end

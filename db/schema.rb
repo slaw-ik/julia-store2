@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_03_124055) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_07_160221) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,10 +42,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_03_124055) do
   create_table "items", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
-    t.integer "count", default: 0, null: false
+    t.integer "stock_count", default: 0, null: false
     t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_histories", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.string "state", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_histories_on_order_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -101,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_03_124055) do
   end
 
   add_foreign_key "clients", "addresses"
+  add_foreign_key "order_histories", "orders"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "clients"

@@ -1,5 +1,6 @@
-class OrderItemsController < ApplicationController
+# frozen_string_literal: true
 
+class OrderItemsController < ApplicationController
   # GET /items/:id/movements
   # GET /items/:id/movements.json
   def index

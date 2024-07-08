@@ -1,4 +1,7 @@
-json.extract! order, :id, :user_id, :supplier_id, :client_id, :type, :state, :total, :country, :city, :region, :street, :post_code, :building, :flat, :note, :created_at, :updated_at
+# frozen_string_literal: true
+
+json.extract! order, :id, :user_id, :supplier_id, :client_id, :type, :state, :total, :country, :city, :region, :street,
+              :post_code, :building, :flat, :note, :created_at, :updated_at
 
 json.fullAddress order.full_address
 
@@ -7,7 +10,8 @@ if order.is_a? ClientOrder
     json.extract! order.client, :id, :name, :nickname, :email, :phone, :created_at, :updated_at
     json.fullAddress order.client.full_address
     json.address do
-      json.extract! order.client.address, :id, :country, :city, :region, :street, :post_code, :building, :flat, :created_at, :updated_at
+      json.extract! order.client.address, :id, :country, :city, :region, :street, :post_code, :building, :flat,
+                    :created_at, :updated_at
     end
   end
 else

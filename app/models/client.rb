@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: clients
@@ -13,12 +15,13 @@
 #  updated_at :datetime         not null
 #
 class Client < ApplicationRecord
-  belongs_to :address, required: true
+  belongs_to :address, optional: false
   accepts_nested_attributes_for :address
 
   def self.search(search)
     if search.present?
-      where('first_name ILIKE ? OR last_name ILIKE ? OR email LIKE ? OR phone LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+      where('first_name ILIKE ? OR last_name ILIKE ? OR email LIKE ? OR phone LIKE ?', "%#{search}%", "%#{search}%",
+            "%#{search}%", "%#{search}%")
     else
       []
     end
@@ -28,7 +31,5 @@ class Client < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def full_address
-    address.full_address
-  end
+  delegate :full_address, to: :address
 end

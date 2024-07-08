@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -22,11 +24,10 @@
 #  updated_at  :datetime         not null
 #
 class Order < ApplicationRecord
-
   ORDER_STATES = {
     pending: 'pending',
     delivered: 'delivered',
-    canceled: 'canceled',
+    canceled: 'canceled'
   }.freeze
 
   enum state: ORDER_STATES
@@ -35,15 +36,13 @@ class Order < ApplicationRecord
   belongs_to :supplier, optional: true
   belongs_to :client, optional: true
 
-  has_many :order_items
-  has_many :items, through: :order_items
-  has_many :order_histories
+  has_many :order_items, dependent: :destroy
+  has_many :items, through: :order_items, dependent: :destroy
+  has_many :order_histories, dependent: :destroy
 
   def update_total(order_item = nil)
     total = 0
-    if order_item
-      total = order_item.total
-    end
+    total = order_item.total if order_item
 
     update(total: order_items.map(&:total).sum + total)
   end
@@ -57,6 +56,6 @@ class Order < ApplicationRecord
   def full_order_address
     return nil unless country.present? || city.present? || region.present? || street.present? || building.present?
 
-    [street, building, flat, city, region, post_code, country].filter(&:present?).join(", ")
+    [street, building, flat, city, region, post_code, country].filter(&:present?).join(', ')
   end
 end

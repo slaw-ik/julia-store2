@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: addresses
@@ -15,10 +17,10 @@
 #  updated_at :datetime         not null
 #
 class Address < ApplicationRecord
-  has_one :client
-  has_one :supplier
+  has_one :client, dependent: :destroy
+  has_one :supplier, dependent: :destroy
 
   def full_address
-    [street, building, flat, city, region, post_code, country].filter(&:present?).join(", ")
+    [street, building, flat, city, region, post_code, country].filter(&:present?).join(', ')
   end
 end
