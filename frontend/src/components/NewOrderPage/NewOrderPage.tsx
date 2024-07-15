@@ -6,13 +6,7 @@ import ItemSearch from '../ItemSearch/ItemSearch';
 import ItemCard from './ItemCard';
 import { useAppSelector } from '../../app/hooks';
 import { ClientStructure } from '../../features/clients/clientDTOs';
-import {
-  createOrderAsync,
-  OrderStructure,
-  selectOrder,
-  updateOrder,
-  updateOrderItems,
-} from '../../features/orders/orderSlice';
+import { createOrderAsync, selectOrder, updateOrder, updateOrderItems } from '../../features/orders/orderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ItemStructure } from '../../features/items/itemDTOs';
@@ -23,6 +17,7 @@ import './styles.scss';
 import { selectClient } from '../../features/clients/clientSlice';
 import { fullAddress } from '../../features/clients/helpers';
 import { useNavigate } from 'react-router-dom';
+import { OrderStructure } from '../../features/orders/orderDTOs';
 
 const NewOrderPage = () => {
   const ref: LegacyRef<HTMLDivElement> = useRef(null);
@@ -37,7 +32,7 @@ const NewOrderPage = () => {
 
   const setOrdersUser = (client: ClientStructure) => {
     const ordersUser: OrderStructure = {
-      clientId: client.id,
+      clientId: client.id!,
       phone: client.phone,
       country: client.address?.country,
       note: client.address?.note,
@@ -93,7 +88,7 @@ const NewOrderPage = () => {
 
   const handleSubmit = () => {
     if (!order.id) {
-      dispatch(createOrderAsync(order)) //.then(() => navigate('/orders'));
+      dispatch(createOrderAsync(order)); //.then(() => navigate('/orders'));
     } else {
       // dispatch(updateItemAsync(order));
     }

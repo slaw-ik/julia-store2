@@ -1,6 +1,6 @@
 import { OrdersState, OrderState } from './ordersSlice';
 import { API_URL } from '../API';
-import { OrderStructure } from './orderSlice';
+import { OrderStructure, toActiveRecordStructure } from './orderDTOs';
 
 export async function fetchOrders(page: number) {
   return fetch(`${API_URL}/orders.json?page=${page}`, {
@@ -37,7 +37,7 @@ export async function createOrder(payload: OrderStructure) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      order: payload,
+      order: toActiveRecordStructure(payload),
     }),
   })
     .then((res) => res.json())

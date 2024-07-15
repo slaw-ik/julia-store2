@@ -6,13 +6,7 @@ import ItemSearch from '../ItemSearch/ItemSearch';
 import ItemCard from './ItemCard';
 import { useAppSelector } from '../../app/hooks';
 import { ClientStructure } from '../../features/clients/clientDTOs';
-import {
-  fetchOrderAsync,
-  OrderStructure,
-  selectOrder,
-  updateOrder,
-  updateOrderItems,
-} from '../../features/orders/orderSlice';
+import { fetchOrderAsync, selectOrder, updateOrder, updateOrderItems } from '../../features/orders/orderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { ItemStructure } from '../../features/items/itemDTOs';
@@ -20,8 +14,9 @@ import TmpItemCard from './TmpItemCard';
 import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
 
 import './styles.scss';
-import { fetchClientAsync, selectClient, setClient } from '../../features/clients/clientSlice';
+import { selectClient } from '../../features/clients/clientSlice';
 import { fullAddress } from '../../features/clients/helpers';
+import { OrderStructure } from '../../features/orders/orderDTOs';
 
 interface EditOrderPageProps {
   id: string;
@@ -39,7 +34,7 @@ const EditOrderPage = ({ id }: EditOrderPageProps) => {
 
   const setOrdersUser = (client: ClientStructure) => {
     const ordersUser: OrderStructure = {
-      clientId: client.id,
+      clientId: client.id!,
       phone: client.phone,
       country: client.address?.country,
       note: client.address?.note,

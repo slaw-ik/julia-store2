@@ -1,7 +1,7 @@
 import React from 'react';
 import { prettifyDate } from '../../utils/dateTime';
 import Actions from '../MegaTable/Actions';
-import { OrderStructure } from '../../features/orders/orderSlice';
+import { OrderStructure } from '../../features/orders/orderDTOs';
 
 interface OrderProps {
   record: OrderStructure & {

@@ -25,6 +25,7 @@ const initialState: OrderItemsState = {
         count: 0,
         price: 0,
         total: 0,
+        itemId: 0,
         createdAt: '',
         updatedAt: '',
       },

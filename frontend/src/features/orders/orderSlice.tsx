@@ -1,30 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { createOrder, fetchOrder } from './orderAPI';
-import { ClientStructure } from '../clients/clientDTOs';
 import { Statuses } from '../API';
 import { OrderItemStructure } from '../orderItems/orderItemDTOs';
-
-export interface OrderStructure {
-  id?: number;
-  status?: string;
-  total?: string;
-  orderItems?: OrderItemStructure[];
-  clientId?: number;
-  client?: ClientStructure;
-  country?: string;
-  state?: string;
-  note?: string;
-  phone?: string;
-  city?: string;
-  region?: string;
-  street?: string;
-  postCode?: string;
-  building?: string;
-  flat?: string;
-  fullAddress?: string;
-  createdAt?: string;
-}
+import { OrderStructure } from './orderDTOs';
 
 export interface OrdersState {
   order: OrderStructure;
@@ -46,6 +25,7 @@ const initialState: OrdersState = {
     id: 0,
     country: '',
     status: 'pending',
+    clientId: 0,
   },
 
   status: Statuses.Initial,

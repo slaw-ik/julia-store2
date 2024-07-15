@@ -1,8 +1,7 @@
 import React from 'react';
 import OrderItem from './OrderItem';
-import { prettifyDate } from '../../utils/dateTime';
-import { OrderStructure } from '../../features/orders/orderSlice';
 import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
+import { OrderStructure } from '../../features/orders/orderDTOs';
 
 type OrderProps = {
   order: OrderStructure;
