@@ -48,7 +48,8 @@ const NewOrderPage = () => {
   };
 
   const handleAdd = (item: OrderItemStructure) => {
-    const orderItems: OrderItemStructure[] = order.orderItems ? [item, ...order.orderItems] : [item];
+    const addedItem: OrderItemStructure = {...item, itemId: item.id};
+    const orderItems: OrderItemStructure[] = order.orderItems ? [addedItem, ...order.orderItems] : [addedItem];
 
     dispatch(updateOrderItems(orderItems));
     setTmpItem(null);

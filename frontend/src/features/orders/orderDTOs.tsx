@@ -38,7 +38,7 @@ export interface OrderActiveRecordStructure {
   flat?: string;
   note?: string;
   phone?: string;
-  order_item_attributes?: OrderItemActiveRecordStructure[];
+  order_items_attributes?: OrderItemActiveRecordStructure[];
 }
 
 export const toActiveRecordStructure = (order: OrderStructure): OrderActiveRecordStructure => {
@@ -56,9 +56,9 @@ export const toActiveRecordStructure = (order: OrderStructure): OrderActiveRecor
     flat: order.flat || '',
     note: order.note || '',
     phone: order.phone || '',
-    order_item_attributes:
+    order_items_attributes:
       order.orderItems?.map((orderItem) => ({
-        id: orderItem.id!,
+        id: orderItem.id,
         item_id: orderItem.itemId!,
         count: orderItem.count!,
         price: orderItem.price!,

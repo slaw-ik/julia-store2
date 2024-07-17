@@ -25,16 +25,20 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
-    @order = Order.new(order_params)
+    params[:order][:order_items_attributes].each do |item|
+      item[:id] = nil
+    end
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to order_url(@order), notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if params[:order][:client_id].present?
+      @order = ClientOrder.new(order_params)
+    elsif params[:order][:supplier_id].present?
+      @order = SupplierOrder.new(order_params)
+    end
+
+    if @order.save
+      render :show, status: :created, location: @order
+    else
+      render json: @order.errors, status: :unprocessable_entity
     end
   end
 
@@ -70,7 +74,10 @@ class OrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def order_params
-    params.require(:order).permit(:user_id, :supplier_id, :client_id, :type, :state, :total, :country, :city, :region,
-                                  :street, :post_code, :building, :flat, :note)
+    params.require(:order).permit(
+      :user_id, :supplier_id, :client_id, :type, :state, :total, :country, :city, :region,
+      :street, :post_code, :building, :flat, :note, :phone, order_items_attributes: [
+      :id, :item_id, :count, :price]
+    )
   end
 end

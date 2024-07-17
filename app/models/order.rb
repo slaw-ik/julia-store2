@@ -40,6 +40,8 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items, dependent: :destroy
   has_many :order_histories, dependent: :destroy
 
+  accepts_nested_attributes_for :order_items, allow_destroy: true
+
   def update_total(order_item = nil)
     total = 0
     total = order_item.total if order_item
