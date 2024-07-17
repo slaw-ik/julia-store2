@@ -29,6 +29,10 @@ class OrdersController < ApplicationController
       item[:id] = nil
     end
 
+    params[:order][:user_id] = 1
+    params[:order][:state] = Order::ORDER_STATES[:pending]
+    params[:order][:total] = 0
+
     if params[:order][:client_id].present?
       @order = ClientOrder.new(order_params)
     elsif params[:order][:supplier_id].present?
