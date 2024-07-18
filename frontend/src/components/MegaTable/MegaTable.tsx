@@ -3,7 +3,7 @@ import Pagination from './Pagination';
 import FooterInfo from './FooterInfo';
 import Content from './Content';
 
-import './styles.css';
+import './styles.scss';
 import Header from './Header';
 
 interface MegaTableProps {
@@ -67,7 +67,7 @@ const MegaTable = ({
       </div>
       <div className="row">
         <div className="col-lg-12">
-          <div className="table-responsive">
+          <div className="table-responsive mega-table">
             <table className="table project-list-table table-nowrap align-middle table-borderless">
               <thead>
                 <Header dataStructure={dataStructure} showActions={showActions} />

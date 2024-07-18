@@ -2,6 +2,7 @@ import React from 'react';
 import { prettifyDate } from '../../utils/dateTime';
 import Actions from '../MegaTable/Actions';
 import { OrderStructure } from '../../features/orders/orderDTOs';
+import { useNavigate } from 'react-router-dom';
 
 interface OrderProps {
   record: OrderStructure & {
@@ -11,15 +12,19 @@ interface OrderProps {
 
 const Order = ({ record }: OrderProps) => {
   const { id, state, fullAddress, total, note, createdAt, client } = record;
+  const navigate = useNavigate();
+
+  const onClick = (e: React.MouseEvent) => {
+    if (['BUTTON', 'A', 'I'].includes((e.target as HTMLElement).nodeName)) {
+      return;
+    }
+    navigate(`/orders/${id}`);
+  };
 
   return (
-    <tr>
+    <tr onClick={(e) => onClick(e)} >
       <td>{id}</td>
-      <td>
-        <a href={`/orders/${id}`} className="text-body">
-          {client?.name}
-        </a>
-      </td>
+      <td> {client?.name} </td>
       <td>
         <span className="badge badge-soft-success mb-0">{state}</span>
       </td>
