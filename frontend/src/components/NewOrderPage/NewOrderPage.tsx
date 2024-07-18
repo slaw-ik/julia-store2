@@ -48,7 +48,7 @@ const NewOrderPage = () => {
   };
 
   const handleAdd = (item: OrderItemStructure) => {
-    const addedItem: OrderItemStructure = {...item, itemId: item.id};
+    const addedItem: OrderItemStructure = { ...item, itemId: item.id };
     const orderItems: OrderItemStructure[] = order.orderItems ? [addedItem, ...order.orderItems] : [addedItem];
 
     dispatch(updateOrderItems(orderItems));
@@ -89,7 +89,7 @@ const NewOrderPage = () => {
 
   const handleSubmit = () => {
     if (!order.id) {
-      dispatch(createOrderAsync(order)); //.then(() => navigate('/orders'));
+      dispatch(createOrderAsync(order)).then(() => navigate('/orders'));
     } else {
       // dispatch(updateItemAsync(order));
     }

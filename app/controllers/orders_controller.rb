@@ -8,7 +8,13 @@ class OrdersController < ApplicationController
   def index
     @page = (params[:page] || 1).to_i
     @total = ClientOrder.count
-    @client_orders = ClientOrder.joins({ client: [:address] }).all.page(@page)
+    @client_orders = ClientOrder.includes(
+      {
+        client: [:address],
+        order_items: [:item]
+      }
+    ).order(created_at: :desc).page(@page)
+
     # @supplier_orders = SupplierOrder.all
   end
 
@@ -80,8 +86,9 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(
       :user_id, :supplier_id, :client_id, :type, :state, :total, :country, :city, :region,
-      :street, :post_code, :building, :flat, :note, :phone, order_items_attributes: [
-      :id, :item_id, :count, :price]
+      :street, :post_code, :building, :flat, :note, :phone, order_items_attributes: %i[
+        id item_id count price
+      ]
     )
   end
 end
