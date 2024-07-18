@@ -22,7 +22,7 @@ const Order = ({ record }: OrderProps) => {
   };
 
   return (
-    <tr onClick={(e) => onClick(e)} >
+    <tr className="clickable" onClick={(e) => onClick(e)}>
       <td>{id}</td>
       <td> {client?.name} </td>
       <td>
