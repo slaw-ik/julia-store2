@@ -22,14 +22,14 @@ const Order = ({ order }: OrderProps) => {
                 <div className="col-lg-12 justify-content-between d-flex">
                   <h5>Order #{order.id}</h5>
                   <div>
-                    <button className="btn btn-outline-primary me-3">
+                    <a className="btn btn-outline-primary me-3" href={`/orders/${order.id}/invoice`}>
                       <i className="bi bi-printer pe-2"></i>
                       Invoice
-                    </button>
-                    <button className="btn btn-primary">
+                    </a>
+                    <a className="btn btn-primary" href={`/orders/${order.id}/edit`}>
                       <i className="bi bi-pencil pe-2"></i>
                       Edit
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

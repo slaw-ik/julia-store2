@@ -14,6 +14,7 @@ import ItemMovements from './pages/ItemMovements';
 import NewOrder from './pages/NewOrder';
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Invoice from './pages/Invoice';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: '/orders/new',
     element: <NewOrder />,
+  },
+  {
+    path: '/orders/:id/invoice',
+    element: <Invoice />,
   },
   {
     path: '/clients',
