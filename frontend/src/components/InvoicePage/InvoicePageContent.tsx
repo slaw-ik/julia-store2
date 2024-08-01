@@ -12,56 +12,42 @@ const InvoicePageContent = ({ order }: OrderProps) => {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-xs-12">
+          <div className="col-12">
             <div className="grid invoice">
               <div className="grid-body">
                 <div className="invoice-title">
                   <div className="row">
-                    <div className="col-xs-12">
-                      <img src="http://vergo-kertas.herokuapp.com/assets/img/logo.png" alt="" height="35" />
-                    </div>
-                  </div>
-                  <br />
-                  <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-sm-6">
                       <h2>invoice<br />
-                        <span className="small">order #1082</span></h2>
+                        <span className="small">order #{order.id}</span></h2>
+                    </div>
+                    <div className="col-sm-6 text-end">
+                      <div className="btn-group print-button">
+                        <button className="btn btn-outline-primary" onClick={() => window.print()}>
+                          <i className="bi bi-printer"></i> Print
+                        </button>
+                        <a href={`/orders/${order.id}`} className="btn btn-outline-danger">
+                          <i className="bi bi-box-arrow-left"></i> Back
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <hr />
                 <div className="row">
-                  <div className="col-xs-6">
+                  <div className="col-sm-6">
                     <address>
-                      <strong>Billed To:</strong><br />
+                      <strong>Shipped To:</strong><br />
                       Twitter, Inc.<br />
                       795 Folsom Ave, Suite 600<br />
                       San Francisco, CA 94107<br />
                       <abbr title="Phone">P:</abbr> (123) 456-7890
                     </address>
                   </div>
-                  <div className="col-xs-6 text-right">
-                    <address>
-                      <strong>Shipped To:</strong><br />
-                      Elaine Hernandez<br />
-                      P. Sherman 42,<br />
-                      Wallaby Way, Sidney<br />
-                      <abbr title="Phone">P:</abbr> (123) 345-6789
-                    </address>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-xs-6">
-                    <address>
-                      <strong>Payment Method:</strong><br />
-                      Visa ending **** 1234<br />
-                      h.elaine@gmail.com<br />
-                    </address>
-                  </div>
-                  <div className="col-xs-6 text-right">
+                  <div className="col-sm-6 text-end">
                     <address>
                       <strong>Order Date:</strong><br />
-                      17/06/14
+                      {order.createdAt}<br /><br />
                     </address>
                   </div>
                 </div>
@@ -71,60 +57,38 @@ const InvoicePageContent = ({ order }: OrderProps) => {
                     <table className="table table-striped">
                       <thead>
                       <tr className="line">
-                        <td><strong>#</strong></td>
-                        <td className="text-center"><strong>PROJECT</strong></td>
-                        <td className="text-center"><strong>HRS</strong></td>
-                        <td className="text-right"><strong>RATE</strong></td>
-                        <td className="text-right"><strong>SUBTOTAL</strong></td>
+                        <td style={{ width: '5%' }}><strong>#</strong></td>
+                        <td className="text-center" style={{ width: '50%' }}><strong>ITEM</strong></td>
+                        <td className="text-center" style={{ width: '15%' }}><strong>COUNT</strong></td>
+                        <td className="text-right" style={{ width: '15%' }}><strong>PRICE</strong></td>
+                        <td className="text-right" style={{ width: '15%' }}><strong>SUBTOTAL</strong></td>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td><strong>Template Design</strong><br />A website template is a pre-designed webpage, or set
-                          of webpages, that anyone can modify with their own content and images to setup a website.
-                        </td>
-                        <td className="text-center">15</td>
-                        <td className="text-center">$75</td>
-                        <td className="text-right">$1,125.00</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td><strong>Template Development</strong><br />Web development is a broad term for the work
-                          involved in developing a web site for the Internet (World Wide Web) or an intranet (a private
-                          network).
-                        </td>
-                        <td className="text-center">15</td>
-                        <td className="text-center">$75</td>
-                        <td className="text-right">$1,125.00</td>
-                      </tr>
+                      {
+                        order.orderItems && order.orderItems.map((item, index) => (
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td><strong>{item.item?.name}</strong><br />{item.item?.description}</td>
+                            <td className="text-center">{item.count}</td>
+                            <td className="text-right">${item.price}</td>
+                            <td className="text-right">${item.total}</td>
+                          </tr>
+                        ))
+                      }
                       <tr className="line">
-                        <td>3</td>
-                        <td><strong>Testing</strong><br />Take measures to check the quality, performance, or
-                          reliability of (something), especially before putting it into widespread use or practice.
-                        </td>
-                        <td className="text-center">2</td>
-                        <td className="text-center">$75</td>
-                        <td className="text-right">$150.00</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
-                        <td colSpan={3}></td>
-                        <td className="text-right"><strong>Taxes</strong></td>
-                        <td className="text-right"><strong>N/A</strong></td>
-                      </tr>
-                      <tr>
-                        <td colSpan={3}>
-                        </td>
-                        <td className="text-right"><strong>Total</strong></td>
-                        <td className="text-right"><strong>$2,400.00</strong></td>
+                        <td colSpan={4}></td>
+                        <td className="text-right"><strong>${order.total}</strong></td>
                       </tr>
                       </tbody>
                     </table>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12 text-right identity">
-                    <p>Designer identity<br /><strong>Jeffrey Williams</strong></p>
                   </div>
                 </div>
               </div>
