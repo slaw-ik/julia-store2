@@ -43,3 +43,5 @@ gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'rack-cors', '~> 2.0'
 
 gem 'annotate', '~> 3.2'
+
+gem 'faker', '~> 3.4', '>= 3.4.2'
