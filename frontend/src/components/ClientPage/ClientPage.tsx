@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Client from './Client';
+import ClientPageContent from './ClientPageContent';
 import { useAppSelector } from '../../app/hooks';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
@@ -24,7 +24,7 @@ const ClientPage = ({ id }: ClientPageProps) => {
   if (status !== Statuses.UpToDate) {
     content = <div>Loading...</div>;
   } else if (client) {
-    content = <Client client={client} />;
+    content = <ClientPageContent client={client} />;
   }
 
   return <div>{content}</div>;

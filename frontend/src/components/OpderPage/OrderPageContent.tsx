@@ -7,7 +7,7 @@ type OrderProps = {
   order: OrderStructure;
 };
 
-const Order = ({ order }: OrderProps) => {
+const OrderPageContent = ({ order }: OrderProps) => {
   return (
     <>
       <div className="px-2 py-3">
@@ -217,4 +217,4 @@ const Order = ({ order }: OrderProps) => {
   );
 };
 
-export default Order;
+export default OrderPageContent;

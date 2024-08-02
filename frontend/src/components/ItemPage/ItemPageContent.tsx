@@ -10,7 +10,7 @@ interface ItemProps {
   item: ItemStructure;
 }
 
-const Item = ({ item }: ItemProps) => {
+const ItemPageContent = ({ item }: ItemProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -127,4 +127,4 @@ const Item = ({ item }: ItemProps) => {
   );
 };
 
-export default Item;
+export default ItemPageContent;

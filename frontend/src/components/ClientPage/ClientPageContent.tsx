@@ -10,7 +10,7 @@ interface ClientProps {
   client: ClientStructure;
 }
 
-const Client = ({ client }: ClientProps) => {
+const ClientPageContent = ({ client }: ClientProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -56,4 +56,4 @@ const Client = ({ client }: ClientProps) => {
   );
 };
 
-export default Client;
+export default ClientPageContent;

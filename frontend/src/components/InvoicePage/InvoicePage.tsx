@@ -8,7 +8,6 @@ import { AppDispatch } from '../../app/store';
 import { Statuses } from '../../features/API';
 import InvoicePageContent from './InvoicePageContent';
 
-
 interface InvoicePageProps {
   id: string;
 }

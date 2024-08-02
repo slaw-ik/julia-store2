@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Item from './Item';
+import ItemPageContent from './ItemPageContent';
 import { useAppSelector } from '../../app/hooks';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
@@ -24,7 +24,7 @@ const ItemPage = ({ id }: ItemPageProps) => {
   if (status !== Statuses.UpToDate) {
     content = <div>Loading...</div>;
   } else if (item) {
-    content = <Item item={item} />;
+    content = <ItemPageContent item={item} />;
   }
 
   return <div>{content}</div>;

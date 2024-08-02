@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../app/hooks';
 import { selectOrder, selectStatus, fetchOrderAsync } from '../../features/orders/orderSlice';
 import { AppDispatch } from '../../app/store';
-import Order from './Order';
+import OrderPageContent from './OrderPageContent';
 import { Statuses } from '../../features/API';
 
 import './styles.scss';
@@ -27,7 +27,7 @@ const OrderPage = ({ id }: OrderPageProps) => {
   if (status !== Statuses.UpToDate) {
     content = <div>Loading...</div>;
   } else if (order) {
-    content = <Order order={order} />;
+    content = <OrderPageContent order={order} />;
   }
 
   return <div>{content}</div>;
