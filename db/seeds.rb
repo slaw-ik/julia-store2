@@ -47,7 +47,16 @@ ActiveRecord::Base.transaction do
 
   30.times do |i|
     itms = items.dup.shuffle
-    order = ClientOrder.create!(user:, client: clients.sample)
+    client = clients.sample
+    order = ClientOrder.create!(
+      user:, client:,
+      phone: client.phone,
+      country: client.address.country,
+      city: client.address.city,
+      region: client.address.region,
+      street: client.address.street,
+      building: client.address.building
+    )
     rand(1..5).times do
       OrderItem.create!(order:, item: itms.pop, count: rand(1..10))
     end

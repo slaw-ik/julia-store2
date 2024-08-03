@@ -2,18 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchOrders } from './orderAPI';
 import { Statuses } from '../API';
+import { OrderStructure } from './orderDTOs';
 
-export interface OrderState {
+export interface OrderState extends OrderStructure {
   id: number;
-  country?: string;
-  status?: string;
-  state?: string;
-  name?: string;
-  fullAddress?: string;
-  total?: string;
-  note?: string;
-  created_at?: string;
-  nickname?: string;
 }
 
 export interface OrdersState {

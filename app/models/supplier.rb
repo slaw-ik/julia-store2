@@ -16,7 +16,6 @@ class Supplier < ApplicationRecord
   belongs_to :address, optional: false
 
   validates :name, presence: true
-  validates :address, presence: true
 
   delegate :full_address, to: :address
 end

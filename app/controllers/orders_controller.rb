@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit; end
 
-  # POST /orders or /orders.json
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     params[:order][:order_items_attributes].each do |item|
       item[:id] = nil
@@ -51,6 +51,8 @@ class OrdersController < ApplicationController
       render json: @order.errors, status: :unprocessable_entity
     end
   end
+
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update

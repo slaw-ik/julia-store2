@@ -2,6 +2,7 @@ require:
   - rubocop-rails
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
@@ -14,6 +15,9 @@ AllCops:
 
 Rails:
   Enabled: true
+
+Rails/I18nLocaleTexts:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:

@@ -6,7 +6,7 @@ type OrderProps = {
 };
 
 function Order({ order }: OrderProps) {
-  const { id, state, name, fullAddress, total, note, created_at, nickname } = order;
+  const { id, state, fullAddress, total, note, createdAt } = order;
 
   return (
     <div className="d-flex text-body-secondary pt-3">
@@ -25,16 +25,16 @@ function Order({ order }: OrderProps) {
       </svg>
       <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div className="d-flex justify-content-between">
-          <strong className="text-gray-dark">{name}</strong>
+          <strong className="text-gray-dark">{order.client?.name}</strong>
           <span className="address">{fullAddress}</span>
           <span className="total">{total}</span>
           <span className="note">{note}</span>
-          <span className="date">{created_at}</span>
+          <span className="date">{createdAt}</span>
           <a href={`/orders/${id}`} className="btn btn-sm btn-outline-secondary">
             Show
           </a>
         </div>
-        <span className="d-block">@{nickname}</span>
+        <span className="d-block">@{order.client?.nickname}</span>
       </div>
     </div>
   );
