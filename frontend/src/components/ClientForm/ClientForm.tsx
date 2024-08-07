@@ -42,7 +42,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   type="text"
                   className="form-control"
                   name="firstName"
-                  value={client.firstName}
+                  value={client.firstName || ''}
                   onChange={handleInputChange}
                   disabled={disableNameFields}
                 />
@@ -55,7 +55,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   type="text"
                   className="form-control"
                   name="lastName"
-                  value={client.lastName}
+                  value={client.lastName || ''}
                   onChange={handleInputChange}
                   disabled={disableNameFields}
                 />
@@ -70,7 +70,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   type="email"
                   className="form-control"
                   name="email"
-                  value={client.email}
+                  value={client.email || ''}
                   onChange={handleInputChange}
                   disabled={disableNameFields}
                 />
@@ -84,7 +84,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   type="text"
                   className="form-control"
                   name="phone"
-                  value={client.phone}
+                  value={client.phone || ''}
                   onChange={handleInputChange}
                 />
               </div>
@@ -106,7 +106,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   className="form-control"
                   name="country"
                   onChange={handleAddressInputChange}
-                  value={client.address?.country}
+                  value={client.address?.country || ''}
                 />
               </div>
             </div>
@@ -119,7 +119,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   className="form-control"
                   name="region"
                   onChange={handleAddressInputChange}
-                  value={client.address?.region}
+                  value={client.address?.region || ''}
                 />
               </div>
             </div>
@@ -134,7 +134,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   className="form-control"
                   name="city"
                   onChange={handleAddressInputChange}
-                  value={client.address?.city}
+                  value={client.address?.city || ''}
                 />
               </div>
             </div>
@@ -147,7 +147,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   className="form-control"
                   name="street"
                   onChange={handleAddressInputChange}
-                  value={client.address?.street}
+                  value={client.address?.street || ''}
                 />
               </div>
             </div>
@@ -162,7 +162,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   className="form-control"
                   name="building"
                   onChange={handleAddressInputChange}
-                  value={client.address?.building}
+                  value={client.address?.building || ''}
                 />
               </div>
             </div>
@@ -175,7 +175,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   className="form-control"
                   name="flat"
                   onChange={handleAddressInputChange}
-                  value={client.address?.flat}
+                  value={client.address?.flat || ''}
                 />
               </div>
             </div>
@@ -190,7 +190,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   className="form-control"
                   name="postCode"
                   onChange={handleAddressInputChange}
-                  value={client.address?.postCode}
+                  value={client.address?.postCode || ''}
                 />
               </div>
             </div>
@@ -205,7 +205,7 @@ const ClientForm = ({ afterUpdateCallback, disableNameFields }: ClientFormProps)
                   rows={3}
                   name="note"
                   onChange={handleAddressInputChange}
-                  value={client.address?.note}
+                  value={client.address?.note || ''}
                 ></textarea>
               </div>
             </div>

@@ -33,12 +33,12 @@ const initialState: OrdersState = {
 
 export const fetchOrderAsync = createAsyncThunk(
   'orders/fetchOrder',
-  async (payload: string) => await fetchOrder(payload)
+  async (payload: string) => await fetchOrder(payload),
 );
 
 export const createOrderAsync = createAsyncThunk(
   'orders/createOrder',
-  async (payload: OrderStructure) => await createOrder(payload)
+  async (payload: OrderStructure) => await createOrder(payload),
 );
 
 export const orderSlice = createSlice({
@@ -46,7 +46,10 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     updateOrder: (state, action: OrderAction) => {
-      state.order = action.payload;
+      state.order = {
+        ...state.order,
+        ...action.payload
+      };
     },
     updateOrderItems: (state, action: OrderItemsAction) => {
       state.order = {

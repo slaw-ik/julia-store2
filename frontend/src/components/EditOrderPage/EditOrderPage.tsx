@@ -14,7 +14,7 @@ import TmpItemCard from './TmpItemCard';
 import { OrderItemStructure } from '../../features/orderItems/orderItemDTOs';
 
 import './styles.scss';
-import { selectClient } from '../../features/clients/clientSlice';
+import { selectClient, setClient } from '../../features/clients/clientSlice';
 import { fullAddress } from '../../features/clients/helpers';
 import { OrderStructure } from '../../features/orders/orderDTOs';
 
@@ -45,6 +45,9 @@ const EditOrderPage = ({ id }: EditOrderPageProps) => {
       building: client.address?.building,
       flat: client.address?.flat,
     };
+
+    console.log('order', order);
+    console.log('ordersUser', ordersUser);
 
     dispatch(updateOrder(ordersUser));
   };
@@ -102,11 +105,11 @@ const EditOrderPage = ({ id }: EditOrderPageProps) => {
     setDisabledCreateButton(!(order.clientId && order.clientId > 0 && order.orderItems && order.orderItems.length > 0));
   }, [order, order.clientId, order.orderItems]);
 
-  // useEffect(() => {
-  //   if (order.client) {
-  //     dispatch(setClient(order.client));
-  //   }
-  // }, [order.client]);
+  useEffect(() => {
+    if (order.client) {
+      dispatch(setClient(order.client));
+    }
+  }, [order.client]);
 
   useEffect(() => {
     console.log('fetchOrderAsync');
